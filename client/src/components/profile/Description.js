@@ -8,6 +8,7 @@ import {
   CardContent,
   Button
 } from '@material-ui/core';
+import config from "../../config/config.json";
 
 
 
@@ -89,10 +90,14 @@ function Description(props) {
                   {/* Donate and Share Button */}
                   {/* Only accessed by investors*/}
                   {
-                    (role === '') && (
+                    (role === config.role.others) && (
                       <CardActions>
-                        <Button color="primary" variant="contained" onClick={handleDonate}>Donate</Button>
-                        <Button variant="contained">Share</Button>
+                        <Button color="primary" variant="contained" onClick={handleDonate}>
+                          Donate
+                        </Button>
+                        <Button variant="contained">
+                          Share
+                        </Button>
                       </CardActions>
                     )
                   }
@@ -101,7 +106,7 @@ function Description(props) {
                 {/* Report Button */}
                 {/* Only accessed by investors*/}
                 {
-                  (role === '') && (
+                  (role === config.role.others) && (
                     <Button variant="outlined" className={classes.reportBtn}>Report</Button>
                   )
                 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { makeStyles, Button } from '@material-ui/core';
 import StatementsDropdown from './StatementsDropdown';
-
-
+import config from "../../config/config.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,9 +80,11 @@ function FinancialStatements(props) {
             {/* Add Financial Statements Button */}
             {/* Only accessed by users*/}
             {
-              (role === 'user') && (
+              (role === config.role.user) && (
                 <div className={classes.addFiles}>
-                  <Button variant="contained" color="primary" className={classes.addFilesBtn}>Add</Button>
+                  <Button variant="contained" color="primary" className={classes.addFilesBtn}>
+                    Add
+                  </Button>
                 </div>
               )
             }

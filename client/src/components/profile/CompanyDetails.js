@@ -13,8 +13,9 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIcon from '@material-ui/icons/Phone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
-import { green, red, amber } from '@material-ui/core/colors'
 
+import { green, red, amber } from '@material-ui/core/colors'
+import config from "../../config/config.json";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +124,7 @@ function CompanyDetails(props) {
 
 
                     {
-                        role === 'user' && (
+                        role === config.role.user && (
                             <div className={classes.operations}>
                                 <Chip label="Status: Pending" className={classes.pending} />
                                 <IconButton aria-label="edit">
@@ -133,7 +134,7 @@ function CompanyDetails(props) {
                         )
                     }
                     {
-                        role === 'admin' && (
+                        role === config.role.admin && (
                             <div className={classes.operations}>
                                 <Button variant="contained" size="small" className={classes.approve}>
                                     Approve

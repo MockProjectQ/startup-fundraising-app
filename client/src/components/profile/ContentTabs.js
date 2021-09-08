@@ -1,14 +1,18 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    makeStyles,
+    Paper,
+    Tabs,
+    Tab
+} from '@material-ui/core';
 
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Description from './Description';
 import PitchDeck from './PitchDeck';
 import FinancialStatements from './FinancialStatements';
 import PersonalDetails from './PersonalDetails';
 import Investors from './Investors';
+
+import config from "../../config/config.json";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,13 +25,13 @@ function ContentTabs(props) {
     const [value, setValue] = React.useState(0);
 
     // props
-    const { 
+    const {
         name,
         email,
         role,
         description,
         companyName,
-        investmentRequired 
+        investmentRequired
     } = props.user;
 
     // Handle Tab change
@@ -51,14 +55,14 @@ function ContentTabs(props) {
 
                     {/* Only Admin Accessed Tabs */}
                     {
-                        (role === 'admin') && (
+                        (role === config.role.admin) && (
                             <Tab label="Personal Details" />
                         )
                     }
 
                     {/* Only User Accessed Tabs */}
                     {
-                        (role === 'user') && (
+                        (role === config.role.user) && (
                             [
                                 <Tab label="Personal Details" key={3} />,
                                 <Tab label="Investors" key={4} />
@@ -78,23 +82,23 @@ function ContentTabs(props) {
                     description,
                     companyName,
                     investmentRequired
-                }} 
+                }}
             />
             <PitchDeck value={value} index={1} />
             <FinancialStatements value={value} index={2} role={role} />
 
             {/* Only Admin accessed tab panel */}
             {
-                (role === 'admin') && (
-                    <PersonalDetails value={value} index={3} user={{name, email}} />
+                (role === config.role.admin) && (
+                    <PersonalDetails value={value} index={3} user={{ name, email }} />
                 )
             }
 
             {/* Only user accessed tab panel */}
             {
-                (role === 'user') && (
+                (role === config.role.user) && (
                     [
-                        <PersonalDetails value={value} index={3} user={{name, email}} />,
+                        <PersonalDetails value={value} index={3} user={{ name, email }} />,
                         <Investors value={value} index={4} />
                     ]
                 )
