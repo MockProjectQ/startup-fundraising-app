@@ -4,8 +4,11 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './components/login/Login';
 import LoginNext from './components/login/LoginNext';
 import Home from './components/home/Home';
-import Profile from './components/profile/Profile';
+import CompanyList from './components/companyList/companyList';
+
 import ErrorBoundary from './helper/Error';
+import AdminDashboard from './components/adminDashboard/adminDashboard';
+import Profile from './components/profile/Profile';
 import InvestorForm from './components/investor/InvestorForm';
 
 export default function App() {
@@ -18,6 +21,8 @@ export default function App() {
                 <Switch>
                     <Route   exact path="/login"     component={Login}/>
                     <Route   exact path="/home"      component={Home} />                  
+                    <Route   exact path="/admin/list"      component={CompanyList} />                  
+                    <Route   exact path="/admin/dashboard"      component={AdminDashboard} />                  
                     <Route   exact path="/profile"      component={Profile} />                  
                     <Route   exact path="/investor"      component={InvestorForm} />                  
                     
