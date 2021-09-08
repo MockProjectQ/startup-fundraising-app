@@ -8,6 +8,8 @@ import CompanyList from './components/companyList/companyList';
 
 import ErrorBoundary from './helper/Error';
 import AdminDashboard from './components/adminDashboard/adminDashboard';
+import Profile from './components/profile/Profile';
+import InvestorForm from './components/investor/InvestorForm';
 
 export default function App() {
 
@@ -19,8 +21,11 @@ export default function App() {
                 <Switch>
                     <Route   exact path="/login"     component={Login}/>
                     <Route   exact path="/home"      component={Home} />                  
-                    <Route   exact path="/list"      component={CompanyList} />                  
+                    <Route   exact path="/admin/list"      component={CompanyList} />                  
                     <Route   exact path="/admin/dashboard"      component={AdminDashboard} />                  
+                    <Route   exact path="/profile"      component={Profile} />                  
+                    <Route   exact path="/investor"      component={InvestorForm} />                  
+                    
                     <Route   exact path="*"          component={LoginNext} />
                 </Switch>
           </ErrorBoundary>
