@@ -1,31 +1,23 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React from 'react';
 
-import Login from './components/login/Login';
-import LoginNext from './components/login/LoginNext';
+import './App.css';
 import Home from './components/home/Home';
-import Profile from './components/profile/Profile';
-import ErrorBoundary from './helper/Error';
-import InvestorForm from './components/investor/InvestorForm';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Navbar from './components/navbar/Navbar';
 
-export default function App() {
 
+function App() {
   return (
-    <div>
-        <BrowserRouter>
-          {/* <Navbar></Navbar> */}
-          <ErrorBoundary>
-                <Switch>
-                    <Route   exact path="/login"     component={Login}/>
-                    <Route   exact path="/home"      component={Home} />                  
-                    <Route   exact path="/profile"      component={Profile} />                  
-                    <Route   exact path="/investor"      component={InvestorForm} />                  
-                    
-                    <Route   exact path="*"          component={LoginNext} />
-                </Switch>
-          </ErrorBoundary>
-        </BrowserRouter>
-
-    </div>
-  )
+    <>
+      <Router>
+       <Navbar/>
+        <Switch>
+          <Route path='/' exact component={Home} />
+          
+        </Switch>
+        <Home/>
+      </Router>
+    </>
+  );
 }
+export default App;
