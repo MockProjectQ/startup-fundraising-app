@@ -1,23 +1,27 @@
-import React from 'react';
+import React from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import './App.css';
+
 import Home from './components/home/Home';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Navbar from './components/navbar/Navbar';
+
+import ErrorBoundary from './helper/Error';
 
 
-function App() {
+export default function App() {
+
   return (
-    <>
-      <Router>
-       <Navbar/>
-        <Switch>
-          <Route path='/' exact component={Home} />
-          
-        </Switch>
-        <Home/>
-      </Router>
-    </>
-  );
+    <div>
+        <BrowserRouter>
+          {/* <Navbar></Navbar> */}
+          <ErrorBoundary>
+                <Switch>
+                    
+                    <Route   exact path="/home"      component={Home} />                  
+                    
+                </Switch>
+          </ErrorBoundary>
+        </BrowserRouter>
+
+    </div>
+  )
 }
-export default App;
