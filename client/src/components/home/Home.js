@@ -1,9 +1,18 @@
 import React from 'react'
+import '../../App.css'
+import Cards from '../home-sections/Cards'
+import Footer from '../home-sections/Footer'
+import HeroSection from '../home-sections/HeroSection'
 
-export default function Home() {
+const Home = () => {
     return (
-        <div>
-            This is home Component
-        </div>
+        <>
+        <HeroSection />
+        <Cards/>
+        <Footer/>
+        
+      </>
     )
 }
+
+export default Home

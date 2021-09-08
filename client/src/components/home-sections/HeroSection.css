@@ -1,0 +1,87 @@
+
+.home-container{
+    display: flex;
+    background: linear-gradient( 
+90deg
+ , rgb(235, 242, 242) 0%, rgb(235, 242, 242) 100%);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.right-flex{
+    position: relative;
+    width: 600px;
+    height: 700px;
+    display: flex;
+    background: url(./bulb.PNG);
+    background-size: 500px 600px;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+}
+
+.achieve-together{
+    position: absolute;
+    width: 434px;
+    height: 221px;
+    left: 120px;
+    top: 250px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #3F51B5;
+}
+.intro-para{
+    position: relative;
+    top: 450px;
+    position: absolute;
+    width: 649px;
+    height: 171px;
+    left: 34px;
+    /* top: 512px; */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    letter-spacing: 0.1px;
+    color: rgba(0, 0, 0, 0.87);
+
+}
+
+.video-startup {
+    object-fit: cover;
+    width: 140%;
+    height: 100%;
+    /* position: fixed; */
+    /* z-index: -1;*/
+  }
+  
+  .hero-container {
+    /* background: url('/images/img-home.jpg') center center/cover no-repeat; */
+    height: 80vh;
+    background: linear-gradient( 
+90deg
+ , rgb(235, 242, 242) 0%, rgb(235, 242, 242) 100%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: inset 0 0 0 1000px rgba(235, 242, 242, 0.2);
+    object-fit: contain;
+  }
+  
+  h1{
+      color: #3F51B5;
+     
+  }
