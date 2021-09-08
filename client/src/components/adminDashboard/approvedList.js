@@ -96,7 +96,7 @@ export default function ApprovedList() {
                 </Grid>
 
                 <div className={classes.viewbtn}>
-                    <Button variant="contained" color="primary" onClick={() => { history.push('/list') }}>
+                    <Button variant="contained" color="primary" onClick={() => { history.push('/admin/list') }}>
                         View All
                     </Button>
                 </div>
