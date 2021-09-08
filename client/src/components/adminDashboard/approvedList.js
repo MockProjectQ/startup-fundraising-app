@@ -68,7 +68,7 @@ export default function ApprovedList() {
                         "title": "Not a New Company",
                         "created_at": "Just now",
                         "author_name": "Not Mohit",
-                        "content": "Officia elit est sunt magna irure veniam proident magna pariatur.",
+                        "content": "Officia elit est sun magna irure veniam proident magna pariatur.",
                     });
                 }
                 setResultCards(result.slice(0, 3))
