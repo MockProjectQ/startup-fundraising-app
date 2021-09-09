@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
+import Navbar from '../navbar/Navbar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,6 +31,9 @@ function Profile() {
 
     return (
         <div className={classes.root}>
+            {/* Navbar */}
+            <Navbar />
+
             {/* Main Details */}
             <CompanyDetails user={user}/>
 

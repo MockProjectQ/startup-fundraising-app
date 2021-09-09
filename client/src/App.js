@@ -10,6 +10,7 @@ import ErrorBoundary from './helper/Error';
 import AdminDashboard from './components/adminDashboard/adminDashboard';
 import Profile from './components/profile/Profile';
 import InvestorForm from './components/investor/InvestorForm';
+import Signup from './components/signup/Signup';
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
                     <Route   exact path="/admin/dashboard"      component={AdminDashboard} />                  
                     <Route   exact path="/profile"      component={Profile} />                  
                     <Route   exact path="/investor"      component={InvestorForm} />                  
+                    <Route   exact path="/signup"      component={Signup} />                  
                     
                     <Route   exact path="*"          component={LoginNext} />
                 </Switch>
