@@ -45,22 +45,23 @@ const Navbar = () => {
                         </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to='/contact' className='nav-links' onClick={closeMobileMenu}>
+                       <Link to='/home' className='nav-links' onClick={closeMobileMenu}>
                             Contact
                         </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to='/startups' className='nav-links' onClick={closeMobileMenu}>
+                        <Link to='/admin/list' className='nav-links' onClick={closeMobileMenu}>
                             Startups
                         </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
+                        <Link to='/admin/list' className='nav-links-mobile' onClick={closeMobileMenu}>
                             LOGIN
                         </Link>
                         </li>
                     </ul>
-                    {button && <Button buttonStyle='btn--outline'>LOGIN</Button>}
+                    <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
+                    </Link>       
                 </div>
             </nav>
         </>

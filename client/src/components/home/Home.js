@@ -1,5 +1,7 @@
 import React from 'react'
 import '../../App.css'
+import CompanyCard from '../companyCard/companyCard'
+import CompanyList from '../companyList/companyList'
 import Cards from '../home-sections/Cards'
 import Footer from '../home-sections/Footer'
 import HeroSection from '../home-sections/HeroSection'
@@ -11,7 +13,8 @@ const Home = () => {
         <Navbar/>
         <HeroSection />
         <Cards/>
-        <Footer/>
+       
+        <Footer id="contact" />
         
       </>
     )
