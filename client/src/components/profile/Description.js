@@ -40,17 +40,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Description(props) {
   const classes = useStyles();
-  const { value, index, user } = props;
+  const { value, index, startup } = props;
+  const role = props.role;
+
   const {
-    role,
     description,
     companyName,
     investmentRequired
-  } = user;
-
-  function handleDonate() {
-    console.log('Donate');
-  }
+  } = startup;
 
   return (
     <div>
@@ -87,12 +84,13 @@ function Description(props) {
                       ₹ {investmentRequired}
                     </h2>
                   </CardContent>
+
                   {/* Donate and Share Button */}
                   {/* Only accessed by investors*/}
                   {
                     (role === config.role.others) && (
                       <CardActions>
-                        <Button color="primary" variant="contained" onClick={handleDonate}>
+                        <Button color="primary" variant="contained" href="/investor">
                           Donate
                         </Button>
                         <Button variant="contained">

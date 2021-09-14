@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles,Grid } from '@material-ui/core';
 import InvestorDetail from './InvestorDetail';
+import getInvestors from '../../services/getInvestors';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +14,18 @@ function Investors(props) {
     const classes = useStyles();
     const { value, index } = props;
 
+    const [investors,setInvestors] = React.useState([])
+
+    React.useEffect(()=> {
+        const fetchInvestorsData = async () => {
+            const response = await getInvestors('FktzsQk2fdfnS08r9HXo');
+            console.log(response)
+            setInvestors(response)
+            
+        }
+        fetchInvestorsData();
+    }, [])
+
     return (
         <div>
             {
@@ -20,27 +33,14 @@ function Investors(props) {
                     <div className={classes.root}>
                         <Grid container spacing={3}>
                             {/* Each investors */}
-                            <InvestorDetail 
-                                name= 'Test 1'
-                                email= 'test1@gmail.com'
-                                phone= '9090909090'
-                                minAmount= '200000'
-                                maxAmount= '500000'
-                            />
-                            <InvestorDetail 
-                                name= 'Test 2'
-                                email= 'test2@gmail.com'
-                                phone= '8080808080'
-                                minAmount= '200000'
-                                maxAmount= '500000'
-                            />
-                            <InvestorDetail 
-                                name= 'Test 3'
-                                email= 'test3@gmail.com'
-                                phone= '7070707070'
-                                minAmount= '200000'
-                                maxAmount= '500000'
-                            />
+                            {
+                                investors.map((investor) => (
+                                    <InvestorDetail 
+                                        key={investor.id}
+                                        investor = {investor}
+                                    />
+                                ))
+                            }
                         </Grid>
                     </div>
                 )

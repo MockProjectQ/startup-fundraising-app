@@ -49,7 +49,9 @@ function StatementsDropdown(props) {
                             color="primary"
                             startIcon={<InsertDriveFileOutlinedIcon />}
                             target="_blank"
-                            href={file.url}>
+                            key = {file.name}
+                            href={file.fileUrl}
+                            >
                             {file.name}
                         </Button>
                     ))

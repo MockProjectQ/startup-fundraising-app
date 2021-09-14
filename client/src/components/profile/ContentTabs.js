@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
 
 function ContentTabs(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(2);
+
+    const role = props.role;
 
     // props
     const {
-        name,
-        email,
-        role,
         description,
         companyName,
-        investmentRequired
-    } = props.user;
+        investmentRequired,
+        pitchDeck
+    } = props.startup;
 
     // Handle Tab change
     const handleChange = (event, newValue) => {
@@ -77,20 +77,20 @@ function ContentTabs(props) {
             <Description
                 value={value}
                 index={0}
-                user={{
-                    role,
+                role={role}
+                startup={{
                     description,
                     companyName,
                     investmentRequired
                 }}
             />
-            <PitchDeck value={value} index={1} />
+            <PitchDeck value={value} index={1} startup={{pitchDeck}}/>
             <FinancialStatements value={value} index={2} role={role} />
 
             {/* Only Admin accessed tab panel */}
             {
                 (role === config.role.admin) && (
-                    <PersonalDetails value={value} index={3} user={{ name, email }} />
+                    <PersonalDetails value={value} index={3} />
                 )
             }
 
@@ -98,8 +98,8 @@ function ContentTabs(props) {
             {
                 (role === config.role.user) && (
                     [
-                        <PersonalDetails value={value} index={3} user={{ name, email }} />,
-                        <Investors value={value} index={4} />
+                        <PersonalDetails key={'personalDetails'} value={value} index={3} />,
+                        <Investors key={'investors'} value={value} index={4} />
                     ]
                 )
             }
