@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
-//import GetCompanyList from 'services';
 import Container from "@material-ui/core/Container";
 import CompanyCard from '../companyCard/companyCard';
 import Typography from '@material-ui/core/Typography';
@@ -9,20 +8,20 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-
+import { getAllStartUpDetails } from '../../services/startUpService';
 
 const useStyles = makeStyles({
 
-    mainContainer:{
+    mainContainer: {
         width: "90%",
-        marginTop:"5%",
-        marginBottom:"5%",
-        margin:"auto",
+        marginTop: "5%",
+        marginBottom: "5%",
+        margin: "auto",
     },
     companyContainer: {
-        backgroundColor:"#FFFFFF",
+        backgroundColor: "#FFFFFF",
         width: "100%",
-        paddingBottom:"3%",
+        paddingBottom: "3%",
         boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
         height: "100vh",
         overflowY: "scroll",
@@ -64,85 +63,94 @@ export default function CompanyList() {
 
     useEffect(() => {
         document.body.style.backgroundColor = "#E5E5E5";
-        return () =>{
+        return () => {
             document.body.style.backgroundColor = null;
         }
     });
-    
+
     var searchQ = React.useRef(null);;
     let searchResults = () => {
         var str = searchQ.current.value;
         console.log(searchQ.current.value)
-        //let querySet = getCards()
-        let resultset = cards.filter((ele) => {
-            if (ele.title.toLowerCase().indexOf(str.toLowerCase()) !== -1) {
-                return ele
-            }
-        });
+        if (str === "") {
+            setResultCards(cards);
+        }
+        else {
+            let resultset = cards.filter((ele) => {
+                if (ele.companyName.toLowerCase().indexOf(str.toLowerCase()) !== -1) {
+                    return ele
+                }
+            });
 
-        console.log(cards);
-        setResultCards(resultset);
+            console.log(cards);
+            setResultCards(resultset);
+
+        }
 
     }
 
     useEffect(() => {
         async function fetchList() {
+            let results = []
 
             try {
-                //let result = await GetCompanyList();
-                let result = [];
-                for (let i = 0; i < 15; i++) {
-                    result.push({
-                        "title": "New Company",
-                        "created_at": "Just now",
-                        "author_name": "Mohit",
-                        "content": "Officia elit est sunt magna irure veniam proident magna pariatur.",
-                    });
-                    result.push({
-                        "title": "Not a New Company",
-                        "created_at": "Just now",
-                        "author_name": "Not Mohit",
-                        "content": "Officia elit est sunt magna irure veniam proident magna pariatur.",
-                    });
-                }
-                await setCards(result)
-                setResultCards(result)
+                results = await getAllStartUpDetails();
+                results = results.filter((ele) => {
+                    if (ele.status === "approved") {
+                        return ele
+                    }
+                })
+                setCards(results);
+                setResultCards(results);
+
             }
             catch (err) {
             }
+
         }
         fetchList()
 
     }, [])
 
-
     return (
+
         <div className={classes.mainContainer}>
             <div>
-        <Container maxWidth="xl" className={classes.companyContainer}>
-            <Container maxWidth="xl" className={classes.searchContainer}>
+                <Container maxWidth="xl" className={classes.companyContainer}>
+                    <Container maxWidth="xl" className={classes.searchContainer}>
 
-                <Typography variant="h6" component="h5">Start Ups</Typography>
+                        <Typography variant="h6" component="h5">Start Ups</Typography>
 
-                <Paper  className={classes.formRoot}>
-                    <InputBase
-                        className={classes.searchField}
-                        placeholder="Search by Company name..."
-                        inputProps={{ 'aria-label': 'search by Company name' }}
-                        inputRef={searchQ}
-                    />
-                    <IconButton type="button" className={classes.iconButton} aria-label="search" onClick={() => searchResults()}>
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
-            </Container>
+                        <Paper className={classes.formRoot}>
+                            <InputBase
+                                className={classes.searchField}
+                                placeholder="Search by Company name..."
+                                inputProps={{ 'aria-label': 'search by Company name' }}
+                                inputRef={searchQ}
+                                onChange={() => searchResults()}
+                            />
+                            <IconButton type="button" className={classes.iconButton} aria-label="search" onClick={() => searchResults()}>
+                                <SearchIcon />
+                            </IconButton>
+                        </Paper>
+                    </Container>
+                    {console.log("Refresh", resultCards.slice(0, 1))}
+                    <Grid container spacing={3}>
+                        {(resultCards.length === 0) ?
 
-            <Grid container spacing={3}>
-                {resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
-            </Grid>
+                            <Typography variant="h5" component="h2" style={{ margin: "auto", marginTop: "20%", color: "GrayText" }} >Nothing to Display</Typography> :
 
-        </Container>
-        </div>
+                            resultCards.map((item, ind, arr) => (
+                                <Grid item xs={4} className={classes.card}>
+                                    <CompanyCard company={item} key={(ind + 1).toString()} />
+                                </Grid>
+                            ))
+
+                        }
+                    </Grid>
+
+                </Container>
+            </div>
         </div>
     );
 }

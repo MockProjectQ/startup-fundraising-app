@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
-//import GetCompanyList from 'services';
 import Container from "@material-ui/core/Container";
 import CompanyCard from '../companyCard/companyCard';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { getAllStartUpDetails } from '../../services/startUpService';
 
 const useStyles = makeStyles({
 
     mainContainer: {
-        //backgroundColor: "#E5E5E5",
         paddingTop: "5%",
         paddingBottom: "5%",
         width: "85%",
@@ -55,22 +54,7 @@ export default function ApprovedList() {
         async function fetchList() {
 
             try {
-                //let result = await GetCompanyList().sortDecending();
-                let result = [];
-                for (let i = 0; i < 15; i++) {
-                    result.push({
-                        "title": "New Company",
-                        "created_at": "Just now",
-                        "author_name": "Mohit",
-                        "content": "Officia elit est sunt magna irure veniam proident magna pariatur.",
-                    });
-                    result.push({
-                        "title": "Not a New Company",
-                        "created_at": "Just now",
-                        "author_name": "Not Mohit",
-                        "content": "Officia elit est sun magna irure veniam proident magna pariatur.",
-                    });
-                }
+                let result = await getAllStartUpDetails();
                 setResultCards(result.slice(0, 3))
             }
             catch (err) {
@@ -92,7 +76,11 @@ export default function ApprovedList() {
                 </Container>
 
                 <Grid container spacing={3}>
-                    {resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
+
+                    {(resultCards.length === 0) ?
+
+                        <Typography variant="h5" component="h2" style={{ margin: "auto", color: "GrayText" }} >Nothing to Display</Typography> :
+                        resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
                 </Grid>
 
                 <div className={classes.viewbtn}>
