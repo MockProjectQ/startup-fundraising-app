@@ -24,6 +24,8 @@ export default function App() {
                     <Route   exact path="/home"      component={Home} />                  
                     <Route   exact path="/admin/list"      component={CompanyList} />                  
                     <Route   exact path="/admin/dashboard"      component={AdminDashboard} />                  
+                    <Route   exact path="/Startups"      component={CompanyList} />                  
+                    
                     <Route   exact path="/profile"      component={Profile} />                  
                     <Route   exact path="/startup/:id"      component={Profile} />                  
                     <Route   exact path="/investor"      component={InvestorForm} />                  

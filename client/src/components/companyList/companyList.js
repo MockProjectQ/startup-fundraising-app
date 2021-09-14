@@ -42,6 +42,10 @@ const useStyles = makeStyles({
         width: "80%",
     },
 
+    searchButton:{
+        width:"15%",
+    },
+
     card: {
         marginTop: "0.5%",
         marginBottom: "0.5%",
@@ -53,6 +57,7 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
     }
+
 });
 
 export default function CompanyList() {
@@ -129,7 +134,7 @@ export default function CompanyList() {
                                 inputRef={searchQ}
                                 onChange={() => searchResults()}
                             />
-                            <IconButton type="button" className={classes.iconButton} aria-label="search" onClick={() => searchResults()}>
+                            <IconButton className={classes.searchButton} aria-label="search" onClick={() => searchResults()}>
                                 <SearchIcon />
                             </IconButton>
                         </Paper>
@@ -138,7 +143,7 @@ export default function CompanyList() {
                     <Grid container spacing={3}>
                         {(resultCards.length === 0) ?
 
-                            <Typography variant="h5" component="h2" style={{ margin: "auto", marginTop: "20%", color: "GrayText" }} >Nothing to Display</Typography> :
+                            <Typography variant="h5" component="h2" style={{ margin: "auto", marginTop: "20%", color: "GrayText" }} >No Results Found</Typography> :
 
                             resultCards.map((item, ind, arr) => (
                                 <Grid item xs={4} className={classes.card}>
