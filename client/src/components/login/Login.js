@@ -1,11 +1,118 @@
-import React from "react";
+import React, {useState,useEffect} from 'react';
+import { auth ,db , storage } from '../../config/firebase';
+import LoginForm from './LoginForm';
+import './login.css';
+import Profile from '../profile/Profile';
+
+const Login = () => {
+
+  const[user,setUser]=useState('');
+  const[email, setEmail]=useState('');
+  const[password,setPassword]=useState('');
+  const[emailError,setEmailError]=useState('');
+  const[passwordError, setPasswordError]=useState('');
+  const[hasAccount,setHasAccount]=useState('');
+
+  const clearInputs = ()=>{
+    setEmail('');
+    setPassword('');
+  }
+
+  const clearErrors=()=>{
+    setEmailError('');
+    setPasswordError('');
+  }
+  const handleLogin=()=>{
+    clearErrors();
+    auth
+    .signInWithEmailAndPassword(email,password)
+    .catch(err=>{
+      switch(err.code){
+        case "auth/invalid-email":
+        case "auth/user-disabled":
+        case "auth/user-not-found":
+        setEmailError(err.message);
+        break;
+
+        case "auth/wrong-password":
+          setPasswordError(err.message);
+          break;
+    }
+    });
+  }
+
+  
+    const handleSignup=()=>{
+      clearErrors();
+    auth
+    .createUserWithEmailAndPassword(email,password)
+    .catch(err=>{
+      switch(err.code){
+        case "auth/email-already-in-use":
+        case "auth/invalid-email":
+        setEmailError(err.message);
+        break;
+
+        case "auth/weak-password":
+          setPasswordError(err.message);
+          break;
+    }
+    });
+  }
+
+  const handleLogout=()=>{
+    auth.signOut();
+  };
+
+  const authListener=()=>{
+    auth.onAuthStateChanged((user)=>{
+      if(user){
+        clearInputs();
+        setUser(user);
+      }
+      else{
+        setUser("");
+      }
+    });
+  };
+
+  useEffect(()=>
+  {
+    authListener();
+  },[])
+
+  return (
+    <div>
+     {user?(
+       <Profile handleLogout={handleLogout}/>
+     ):(
+      <LoginForm 
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+      handleLogin={handleLogin}
+      handleSignup={handleSignup}
+      hasAccount={hasAccount}
+      setHasAccount={setHasAccount}
+      emailError={emailError}
+      passwordError={passwordError}
+      />
+     )}
+      
+    </div>
+  )
+}
+ 
+export default Login
+
+
+{/*import React from "react";
 // import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -26,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%", 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -39,14 +146,14 @@ export default function Login() {
 
   const email = React.useRef(null);
   const password = React.useRef(null);
-  const rememberMe = React.useRef(null);
+ 
 
   const handleSubmit = async e => {
     e.preventDefault();
     const data = {
       email: email.current.value,
       password: password.current.value,
-      rememberMe: rememberMe.current.checked,
+     
     }
     let response;
     try{
@@ -98,11 +205,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            inputRef={rememberMe}
-            label="Remember me"
-          />
+          
           <Button
             type="submit"
             fullWidth
@@ -114,11 +217,7 @@ export default function Login() {
           </Button>
 
           <Grid container>
-            <Grid item xs>
-              <Link href="changepassword" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+            
             <Grid item>
               <Link href="signup" variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -130,3 +229,5 @@ export default function Login() {
     </Container>
   );
 }
+*/}
+

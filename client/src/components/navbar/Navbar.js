@@ -55,7 +55,7 @@ const Navbar = () => {
                         </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to='/admin/list' className='nav-links-mobile' onClick={closeMobileMenu}>
+                        <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
                             LOGIN
                         </Link>
                         </li>

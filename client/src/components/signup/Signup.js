@@ -9,6 +9,7 @@ import SignupDetails from './SignupDetails';
 import CompanyDetails from './CompanyDetails';
 import MoreDetails from './MoreDetails';
 import FinancialStatements from './FinancialStatements';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,9 +104,10 @@ function Signup() {
                 <Typography className={classes.instructions}>
                   Successfully signed up!!
                 </Typography>
-                <Button onClick={goToProfile} className={classes.button}>
+                <Link to="/login"><Button onClick={goToProfile} className={classes.button}>
                   OK
                 </Button>
+                </Link>
               </div>
             ) : (
               <div>
