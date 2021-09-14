@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles, Paper } from '@material-ui/core';
+import getUserById from '../../services/getUserById';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,8 +16,20 @@ const useStyles = makeStyles((theme) => ({
 
 function PersonalDetails(props) {
     const classes = useStyles();
-    const { value, index, user } = props;
-    const { name, email } = user
+    const { value, index } = props;
+    // const { name, email } = { name: "user", email: "sjdxh" };
+
+    const [name, setName] = React.useState("")
+    const [email, setEmail] = React.useState("")
+
+    React.useEffect(() => {
+        const fetchPersonalDetails = async () => {
+            const { name, email } = await getUserById('BLo3M410injccmDdpZEz')
+            setName(name)
+            setEmail(email)
+        }
+        fetchPersonalDetails();
+    }, [])
 
     return (
         <div className={classes.root}>

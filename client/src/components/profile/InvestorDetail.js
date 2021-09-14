@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 function InvestorDetail(props) {
     const classes = useStyles();
-    const { name, email, phone, desc, minAmount, maxAmount } = props
+    const { name, email, phone, about, minAmount, maxAmount } = props.investor
 
     return (
         <Grid item xs={12} sm={6}>
@@ -50,7 +50,7 @@ function InvestorDetail(props) {
                         </Typography>
                     </div>
                     <Typography variant="body2" align='justify'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut maximus diam. Suspendisse sed massa accumsan diam faucibus feugiat nec eu mauris. Aenean at leo non nibh tristique congue nec et orci. Sed nunc sapien, sodales id risus quis, posuere efficitur justo. Sed eget laoreet sapien. Vestibulum eget erat at ipsum elementum condimentum. Morbi ligula nisi, congue sed vehicula congue, auctor vel nisl. Donec porttitor magna a ullamcorper rhoncus. Nullam molestie mattis congue. Aenean tellus lectus, luctus in magna in, finibus gravida massa. Quisque a purus in leo rutrum pulvinar.
+                        {about}
                     </Typography>
                     <div className={classes.investorContact}>
                         <Typography className={classes.amount} color="primary" variant="button">

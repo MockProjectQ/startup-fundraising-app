@@ -1,8 +1,10 @@
 import React from 'react'
+import { useLocation} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
 import Navbar from '../navbar/Navbar'
+import getStartupById from '../../services/getStartupById';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,32 +15,39 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
     const classes = useStyles();
+    const [startup,setStartup] = React.useState({})
 
-    const user = {
-        name: 'User1',
-        email: 'user@email.com',
-        role: '',
-        companyName: 'MyCompany',
-        CINNumber: 'U67190MH2014PTC099999',
-        websiteLink: 'www.google.com',
-        companyEmail: 'company@email.com',
-        companyPhone: '9090909090',
-        companyAddress: 'C-Wing, Level 2, Eureka Towers, Mindspace, W, Mumbai, 400064',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut maximus diam. Suspendisse sed massa accumsan diam faucibus feugiat nec eu mauris. Aenean at leo non nibh tristique congue nec et orci. Sed nunc sapien, sodales id risus quis, posuere efficitur justo. Sed eget laoreet sapien. Vestibulum eget erat at ipsum elementum condimentum. Morbi ligula nisi, congue sed vehicula congue, auctor vel nisl. Donec porttitor magna a ullamcorper rhoncus. Nullam molestie mattis congue. Aenean tellus lectus, luctus in magna in, finibus gravida massa. Quisque a purus in leo rutrum pulvinar.',
-        tags: ['technology', 'computers'],
-        investmentRequired: 1000000,
-    }
+    const location = useLocation()
+    console.log(location.pathname)
+
+    React.useEffect(()=> {
+        const fetchData = async () => {
+            const startup = await getStartupById('FktzsQk2fdfnS08r9HXo')
+            setStartup(startup)
+        }
+        fetchData();
+    }, [])
+
+    const role = "user"
 
     return (
         <div className={classes.root}>
-            {/* Navbar */}
-            <Navbar />
-
-            {/* Main Details */}
-            <CompanyDetails user={user}/>
-
-            {/* More Details */}
-            <ContentTabs user={user}/>
+            {
+                (startup && Object.keys(startup).length !== 0) ? (
+                    <>
+                    {/* Navbar */}
+                    <Navbar />
+        
+                    {/* Main Details */}
+                    <CompanyDetails role={role} startup={startup}/>
+        
+                    {/* More Details */}
+                    <ContentTabs role={role} startup={startup}/>
+                    </>
+                ): (
+                    <h1>Loading...</h1>
+                )
+            }
         </div>
     )
 }
