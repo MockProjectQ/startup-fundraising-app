@@ -44,9 +44,9 @@ function PitchDeck(props) {
     const classes = useStyles();
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-    const [file, setFile] = useState(require('./ppt/Unit-testing.pdf'));
-    const { value, index } = props;
-
+    
+    const { value, index, startup } = props;
+    const {pitchDeck} = startup;
 
     // Document Loaded
     function onDocumentLoadSuccess({ numPages }) {
@@ -83,7 +83,7 @@ function PitchDeck(props) {
 
                         {/* Display PPT */}
                         <Document
-                            file={file}
+                            file={pitchDeck}
                             onLoadSuccess={onDocumentLoadSuccess}
                             className={classes.pdfDoc}
                         >

@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
           }
         }
       },
-    approve: {
+    approved: {
         color: theme.palette.getContrastText(green[600]),
         backgroundColor: green[600],
         "&:hover": {
@@ -94,39 +94,49 @@ const useStyles = makeStyles((theme) => ({
 function CompanyDetails(props) {
     const classes = useStyles();
 
+    const role = props.role;
+
     const {
-        role,
         companyName,
         CINNumber,
+        companyLogo,
         companyEmail,
         companyPhone,
         companyAddress,
-        tags
-    } = props.user;
+        tags,
+        status
+    } = props.startup;
 
     return (
         <div className={classes.root}>
             {/* Company Logo */}
-            <Avatar alt="Company logo" src="/static/images/avatar/1.jpg" className={classes.large} />
+            <Avatar alt={companyName} src={companyLogo} className={classes.large} />
 
             {/* Company Details */}
             <div className={classes.content}>
                 <div className={classes.mainTop}>
                     <Typography variant="h5" gutterBottom className={classes.companyName}>
+                        {/* Company name */}
                         <span>{companyName}</span>
+                        
+                        {/* UIN Number */}
                         <Chip
                             variant="outlined"
                             color="primary"
                             label={"CIN Number: " + CINNumber}
                             className={classes.cinNumber}
                         />
+
                     </Typography>
 
 
                     {
                         role === config.role.user && (
                             <div className={classes.operations}>
-                                <Chip label="Status: Pending" className={classes.pending} />
+                                {/* Status */}
+                                <Chip label={"Status: "+ config.status[status]} className={classes[status]} />
+
+                                {/* Edit */}
                                 <IconButton aria-label="edit">
                                     <EditIcon />
                                 </IconButton>
@@ -179,8 +189,8 @@ function CompanyDetails(props) {
 
                 {/* Tags */}
                 {
-                    tags.map((tag) =>
-                        <Chip variant="outlined" color="primary" size="small" label={tag} className={classes.tag} />
+                    tags.map((tag, index) =>
+                        <Chip variant="outlined" color="primary" size="small" label={tag} className={classes.tag} key={index} />
                     )
                 }
 

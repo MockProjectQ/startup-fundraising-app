@@ -3,5 +3,10 @@
             "admin": "admin",
             "user": "user",
             "others": ""
+        },
+        "status": {
+            "approved": "Approved",
+            "pending": "Pending",
+            "reject": "Rejected"
         }
     }
