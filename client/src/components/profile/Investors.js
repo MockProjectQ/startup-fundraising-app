@@ -19,7 +19,6 @@ function Investors(props) {
     React.useEffect(() => {
         const fetchInvestorsData = async () => {
             const response = await getInvestors('FktzsQk2fdfnS08r9HXo');
-            console.log(response)
             setInvestors(response)
 
         }

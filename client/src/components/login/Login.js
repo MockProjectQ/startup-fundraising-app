@@ -65,11 +65,15 @@ const Login = () => {
   
   const redirectUser = async (user) => {
     const userData = await getUserByEmail(user.email)
+    console.log(userData)
     if(userData.role === "admin") {
       history.push("/admin/dashboard")
     }
     else if(userData.role === "user") {
-      history.push("/profile")
+      history.push({
+        pathname: '/profile',
+        state: { userData }
+      })
     }
     else{
       history.push("/home")

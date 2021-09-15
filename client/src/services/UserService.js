@@ -13,7 +13,7 @@ async function getUserById(id) {
 async function getUserByEmail(email) {
     try {
         const response = await db.collection('user').where("email", "==", email).get();
-        return response.docs[0].data();
+        return {...response.docs[0].data(), id: response.docs[0].id};
     } catch (error) {
         console.log(error);        
     }

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   card: {
-    padding: '1em'
+    padding: '1em',
   },
   donateBtn: {
     textDecoration: "none",
@@ -70,7 +70,7 @@ function Description(props) {
                       About {companyName}
                     </Typography>
 
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" component="p" align="justify">
                       {description}
                     </Typography>
                   </CardContent>

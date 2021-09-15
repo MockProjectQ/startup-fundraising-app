@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
 import Navbar from '../navbar/Navbar'
-import getStartupById from '../../services/getStartupById';
+import getStartupByUser from '../../services/getStartupByUser';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,19 +16,20 @@ const useStyles = makeStyles((theme) => ({
 function Profile() {
     const classes = useStyles();
     const [startup,setStartup] = React.useState({})
-
+    
     const location = useLocation()
     console.log(location.pathname)
-
+    const role = useLocation().state.userData.role
+    const id = useLocation().state.userData.id
+    
     React.useEffect(()=> {
         const fetchData = async () => {
-            const startup = await getStartupById('FktzsQk2fdfnS08r9HXo')
+            const startup = await getStartupByUser(id)
             setStartup(startup)
         }
         fetchData();
     }, [])
 
-    const role = "user"
 
     return (
         <div className={classes.root}>
