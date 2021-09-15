@@ -15,7 +15,7 @@ const Navbar = () => {
     
     
  
-  const handleLogout=async(e)=> {
+  {/*const handleLogout=async(e)=> {
     e.preventDefault();
     await auth.signOut().then(function(){
         console.log("Signed out")
@@ -26,7 +26,7 @@ const Navbar = () => {
     });
   
     history.push("/home");
-  }
+  }*/}
 
     const showButton=()=>{
         if(window.innerWidth <960){
@@ -80,7 +80,7 @@ const Navbar = () => {
                     
 
                    
-                    <Link to= '/home'><Button buttonStyle='btn--outline' onCLick={handleLogout}  >LOGOUT</Button></Link>
+                    <Button buttonStyle='btn--outline' onCLick={()=>auth().signOut().catch((err)=>console.log(err)) }  >LOGOUT</Button>
                     
                     
                         <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}

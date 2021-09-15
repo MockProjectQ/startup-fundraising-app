@@ -62,10 +62,7 @@ const Login = () => {
     });
   }
 
-  const handleLogout=()=>{
-    auth.signOut();
-  };
-
+  
   const redirectUser = async (user) => {
     const userData = await getUserByEmail(user.email)
     if(userData.role === "admin") {

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ApprovedList from '../adminDashboard/approvedList'
 import ForApprovalList from '../adminDashboard/forApprovalList'
 import ReportList from '../adminDashboard/reportList'
+import Navbar from '../navbar/Navbar';
 
 
 const useStyles = makeStyles({
@@ -29,7 +30,9 @@ export default function AdminDashboard() {
 
     return (
         <div>
+             <Navbar/>
             <div className={classes.Hcontainer}>
+               
                 <ForApprovalList />
                 <ReportList />
             </div>
