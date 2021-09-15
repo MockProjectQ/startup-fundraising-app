@@ -20,12 +20,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const initialFormValues = {
-    year: (new Date()).getFullYear(),
-    name: "",
-    file: null
-}
-
 function AddStatementsDialog() {
     const classes = useStyles();
 

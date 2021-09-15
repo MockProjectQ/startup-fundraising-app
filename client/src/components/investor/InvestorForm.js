@@ -6,6 +6,8 @@ import {
     TextField,
     Button,
 } from '@material-ui/core';
+import { useLocation } from 'react-router';
+import validateInvestorForm from '../../helper/validateInvestorForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,11 +28,36 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const initialFormValues = {
+    fullname: "",
+    email: "",
+    phone: "",
+    about: "",
+    minAmount: 0,
+    maxAmount: 0
+}
+
 function InvestorForm() {
     const classes = useStyles();
 
+    const { companyName } = useLocation().state
+    const [formValues, setFormValues] = React.useState(initialFormValues);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormValues({
+            ...formValues,
+            [name]: value
+        })
+    }
+
     const handleSubmit = (e) => {
-        
+        e.preventDefault();
+        console.log(formValues)
+        const validationResponse = validateInvestorForm(formValues)
+        if (validationResponse.success){
+            
+        }
     }
 
     return (
@@ -39,46 +66,44 @@ function InvestorForm() {
                 <Paper className={classes.paper} elevation={5}>
                     <h2>Investor Details</h2>
                     <form key={"haha"} className={classes.form} onSubmit={handleSubmit}>
-                        <p>Company : Company Name</p>
+                        <p>Company : {companyName}</p>
 
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            required
+                            
                             fullWidth
                             id="fullname"
                             label="Full Name"
                             name="fullname"
                             autoComplete="name"
                             autoFocus
-                        // inputRef={email}
+                            onChange={handleInputChange}
                         />
 
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            required
+                            
                             fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                        // inputRef={email}
+                            onChange={handleInputChange}
                         />
                         <TextField
-                            // inputRef={password}
                             variant="outlined"
                             margin="normal"
-                            required
+                            
                             fullWidth
                             name="phone"
                             label="Contact Number"
                             type="number"
                             id="phone"
-                            autoComplete="phone"
+                            onChange={handleInputChange}
                         />
                         <TextField
-                            // inputRef={password}
                             variant="outlined"
                             margin="normal"
                             fullWidth
@@ -86,30 +111,31 @@ function InvestorForm() {
                             label="About"
                             id="about"
                             multiline
-                            rows={2}
+                            minRows={2}
                             maxRows={5}
+                            onChange={handleInputChange}
                         />
                         <TextField
-                            // inputRef={password}
                             variant="outlined"
                             margin="normal"
-                            required
+                            
                             fullWidth
                             name="minAmount"
                             label="Minimum Investment"
                             type="number"
                             id="minAmount"
+                            onChange={handleInputChange}
                         />
                         <TextField
-                            // inputRef={password}
                             variant="outlined"
                             margin="normal"
-                            required
+                            
                             fullWidth
                             name="maxAmount"
                             label="Maximum Investment"
                             type="number"
                             id="maxAmount"
+                            onChange={handleInputChange}
                         />
 
                         <div className={classes.buttons}>

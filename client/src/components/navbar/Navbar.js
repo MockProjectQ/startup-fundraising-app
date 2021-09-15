@@ -77,9 +77,7 @@ const Navbar = () => {
                         </Link>
                         </li>
                     </ul>
-                    
 
-                   
                     <Button buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
                     
                     
