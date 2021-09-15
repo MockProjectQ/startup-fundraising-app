@@ -9,6 +9,7 @@ import {
   Button
 } from '@material-ui/core';
 import config from "../../config/config.json";
+import { Link } from 'react-router-dom';
 
 
 
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     padding: '1em'
+  },
+  donateBtn: {
+    textDecoration: "none",
+    border: "none"
   },
   reportBtn: {
     color: '#e23636',
@@ -90,9 +95,17 @@ function Description(props) {
                   {
                     (role === config.role.others) && (
                       <CardActions>
-                        <Button color="primary" variant="contained" href="/investor">
-                          Donate
-                        </Button>
+                        <Link
+                          to={{
+                            pathname: "/investor",
+                            state: {companyName}
+                          }}
+                          className={classes.donateBtn}
+                        >
+                          <Button color="primary" variant="contained">
+                            Donate
+                          </Button>
+                        </Link>
                         <Button variant="contained">
                           Share
                         </Button>
@@ -109,7 +122,7 @@ function Description(props) {
                   )
                 }
               </Grid>
-              
+
             </Grid>
           </div>
         )

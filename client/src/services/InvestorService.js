@@ -1,4 +1,5 @@
-import {db} from '../config/firebase';
+import { db, auth, storage } from '../config/firebase';
+
 
 async function getInvestors(id) {
     try {
@@ -14,4 +15,12 @@ async function getInvestors(id) {
     }
 }
 
-export default getInvestors
+async function addInvestors() {
+    try {
+        
+    } catch (error) {
+        console.log(error);        
+    }
+}
+
+export { getInvestors, addInvestors };

@@ -1,7 +1,7 @@
 import React from 'react'
-import { makeStyles,Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import InvestorDetail from './InvestorDetail';
-import getInvestors from '../../services/getInvestors';
+import { getInvestors } from '../../services/InvestorService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,14 +14,14 @@ function Investors(props) {
     const classes = useStyles();
     const { value, index } = props;
 
-    const [investors,setInvestors] = React.useState([])
+    const [investors, setInvestors] = React.useState([])
 
-    React.useEffect(()=> {
+    React.useEffect(() => {
         const fetchInvestorsData = async () => {
             const response = await getInvestors('FktzsQk2fdfnS08r9HXo');
             console.log(response)
             setInvestors(response)
-            
+
         }
         fetchInvestorsData();
     }, [])
@@ -35,9 +35,9 @@ function Investors(props) {
                             {/* Each investors */}
                             {
                                 investors.map((investor) => (
-                                    <InvestorDetail 
+                                    <InvestorDetail
                                         key={investor.id}
-                                        investor = {investor}
+                                        investor={investor}
                                     />
                                 ))
                             }
