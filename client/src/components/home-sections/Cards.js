@@ -98,7 +98,7 @@ return (
     
     </div>
     <br/>
-    <Link to='/Startups'><center><Button  buttonStyle='btn--viewall' >View All</Button></center>
+    <Link to='/startups'><center><Button  buttonStyle='btn--viewall' >View All</Button></center>
     </Link>   
     </div>
 );
