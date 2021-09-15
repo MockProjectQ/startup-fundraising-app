@@ -66,6 +66,7 @@ const Login = () => {
       if(user){
         clearInputs();
         setUser(user);
+        var uid=user.uid;
       }
       else{
         setUser("");

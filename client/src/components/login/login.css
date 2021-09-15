@@ -1,4 +1,4 @@
-* {
+.login{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     
   }
   
-  button {
+  .login-button {
     border: none;
     outline: none;
     width: 100%;
