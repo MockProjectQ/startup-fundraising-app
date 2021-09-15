@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { Button } from '../button/Button';
 import './navbar.css';
 import '../../App.css'
 import { auth } from '../../config/firebase';
 
-const Navbar = ({user}) => {
+const Navbar = () => {
+    const history = useHistory();
     const [click, setClick]=useState(false)
     const [button, setButton] = useState(true);
 
@@ -13,10 +14,19 @@ const Navbar = ({user}) => {
     const closeMobileMenu=()=> setClick(false);
     
     
-  const handleLogout=()=>{
-    auth.signOut();
-  };
  
+  const handleLogout=async(e)=> {
+    e.preventDefault();
+    await auth.signOut().then(function(){
+        console.log("Signed out")
+    }).catch(function(error){
+        console.log(error)
+        console.log("An error occured")
+
+    });
+  
+    history.push("/home");
+  }
 
     const showButton=()=>{
         if(window.innerWidth <960){
@@ -69,14 +79,13 @@ const Navbar = ({user}) => {
                     </ul>
                     
 
-                    {user?
-                    (
-                        <Link to='/home'><Button buttonStyle='btn--outline' onCLick={()=>handleLogout}  >LOGOUT</Button></Link>
-                    ):
-                    (
+                   
+                    <Link to= '/home'><Button buttonStyle='btn--outline' onCLick={handleLogout}  >LOGOUT</Button></Link>
+                    
+                    
                         <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
                         </Link> 
-                    )}     
+                      
                 </div>
             </nav>
         </>
