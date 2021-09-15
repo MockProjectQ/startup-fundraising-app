@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ContentTabs(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(2);
+    const [value, setValue] = React.useState(0);
 
     const role = props.role;
 

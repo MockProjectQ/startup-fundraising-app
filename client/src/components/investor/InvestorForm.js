@@ -29,12 +29,16 @@ const useStyles = makeStyles((theme) => ({
 function InvestorForm() {
     const classes = useStyles();
 
+    const handleSubmit = (e) => {
+        
+    }
+
     return (
         <div className={classes.root}>
             <Container component="main" maxWidth="md">
                 <Paper className={classes.paper} elevation={5}>
                     <h2>Investor Details</h2>
-                    <form key={"haha"} className={classes.form} > {/* onSubmit={handleSubmit}> */}
+                    <form key={"haha"} className={classes.form} onSubmit={handleSubmit}>
                         <p>Company : Company Name</p>
 
                         <TextField

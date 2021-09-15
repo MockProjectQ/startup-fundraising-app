@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, Paper } from '@material-ui/core';
-import getUserById from '../../services/getUserById';
+import { getUserById } from '../../services/UserService';
 
 const useStyles = makeStyles((theme) => ({
     root: {

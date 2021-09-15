@@ -1,10 +1,12 @@
 import React, {useState,useEffect} from 'react';
+import { useHistory } from "react-router-dom"
 import { auth ,db , storage } from '../../config/firebase';
 import LoginForm from './LoginForm';
 import './login.css';
-import Profile from '../profile/Profile';
+import { getUserByEmail } from '../../services/UserService';
 
 const Login = () => {
+  let history = useHistory()
 
   const[user,setUser]=useState('');
   const[email, setEmail]=useState('');
@@ -64,11 +66,25 @@ const Login = () => {
     auth.signOut();
   };
 
+  const redirectUser = async (user) => {
+    const userData = await getUserByEmail(user.email)
+    if(userData.role === "admin") {
+      history.push("/admin/dashboard")
+    }
+    else if(userData.role === "user") {
+      history.push("/profile")
+    }
+    else{
+      history.push("/home")
+    }
+  }
+
   const authListener=()=>{
     auth.onAuthStateChanged((user)=>{
       if(user){
         clearInputs();
         setUser(user);
+        redirectUser(user);
       }
       else{
         setUser("");
@@ -83,9 +99,6 @@ const Login = () => {
 
   return (
     <div>
-     {user?(
-       <Profile handleLogout={handleLogout}/>
-     ):(
       <LoginForm 
       email={email}
       setEmail={setEmail}
@@ -98,7 +111,6 @@ const Login = () => {
       emailError={emailError}
       passwordError={passwordError}
       />
-     )}
       
     </div>
   )

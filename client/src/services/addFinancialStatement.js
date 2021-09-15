@@ -7,13 +7,6 @@ async function addFinancialStatement(id, props) {
 
         if (year && statementName && file) {
 
-            // const login = await db.auth.createUserEP()
-            // if(login){
-            //     if (file.type === "application/pdf") {
-
-            //     }
-            // }
-
             if (file.type === "application/pdf") {
 
                 const fileName = `${statementName}-${year}-${id}-${Math.random()}.pdf`;
@@ -27,8 +20,6 @@ async function addFinancialStatement(id, props) {
 
                     
                     const startupRef = db.collection("start_ups").doc(id).collection("financialStatements");
-
-                    // console.log(year)
 
                     const docInDB = await startupRef.where("year", "==", year).get()
                     let response;
