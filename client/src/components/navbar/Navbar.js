@@ -80,7 +80,7 @@ const Navbar = () => {
                     
 
                    
-                    <Button buttonStyle='btn--outline' onCLick={()=>auth().signOut().catch((err)=>console.log(err)) }  >LOGOUT</Button>
+                    <Button buttonStyle='btn--outline' onClick={()=>auth.signOut().catch((err)=>console.log(err)) }  >LOGOUT</Button>
                     
                     
                         <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
