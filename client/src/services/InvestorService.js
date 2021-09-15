@@ -15,12 +15,17 @@ async function getInvestors(id) {
     }
 }
 
-async function addInvestors() {
+async function addInvestor(id, value) {
     try {
-        
+        const response = await db.collection("start_ups").doc(id).collection("investors").add({
+            ...value,
+            name: value.fullname
+        });
+        console.log("hello")
+        console.log(response)
     } catch (error) {
         console.log(error);        
     }
 }
 
-export { getInvestors, addInvestors };
+export { getInvestors, addInvestor };

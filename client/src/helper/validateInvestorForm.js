@@ -1,4 +1,3 @@
-import React from 'react'
 import {isEmpty, isAlpha, isEmail, isLength, isInt} from 'validator';
 
 
@@ -8,9 +7,6 @@ export default function validateInvestorForm(formValues) {
     // Name validation
     if(isEmpty(formValues.fullname)){
         errors.push({fullname: "Must not be empty"})
-    }
-    else if(!isAlpha(formValues.fullname)){
-        errors.push({fullname: "Must contain only alphabets"})
     }
 
     // Email validation

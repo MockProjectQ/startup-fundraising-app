@@ -28,7 +28,7 @@ function Profile() {
         fetchData();
     }, [])
 
-    const role = ""
+    const role = "user"
 
     return (
         <div className={classes.root}>

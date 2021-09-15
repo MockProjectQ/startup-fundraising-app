@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { useLocation } from 'react-router';
 import validateInvestorForm from '../../helper/validateInvestorForm';
+import { addInvestor } from '../../services/InvestorService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,8 +56,12 @@ function InvestorForm() {
         e.preventDefault();
         console.log(formValues)
         const validationResponse = validateInvestorForm(formValues)
+        console.log(validationResponse.success)
         if (validationResponse.success){
-            
+            addInvestor('FktzsQk2fdfnS08r9HXo', formValues)
+        }
+        else{
+            console.log(validationResponse.errors)
         }
     }
 
