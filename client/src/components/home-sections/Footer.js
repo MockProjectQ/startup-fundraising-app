@@ -13,7 +13,7 @@ function Footer() {
         <p className='footer-subscription-text'>
           Enter Your Contact number below if you have any queries
         </p>
-        <div className='input-areas'>
+        {/*<div className='input-areas'>
           <form>
             <input
               className='footer-input'
@@ -24,14 +24,14 @@ function Footer() {
             <br/>
             <Button buttonStyle='btn--outline'>Submit</Button>
           </form>
-        </div>
+  </div>*/}
       </section>
       <div class='footer-links'>
         <div className='footer-link-wrapper'>
           <div class='footer-link-items'>
             <h2>About Us</h2>
             <Link to='/sign-up'>How it works</Link>
-            <Link to='/'>Investors</Link>
+            {/*<Link to='/'>Investors</Link>*/}
             <Link to='/'>Terms of Service</Link>
           </div>
           <div class='footer-link-items'>
@@ -42,13 +42,13 @@ function Footer() {
         </div>
         <div className='footer-link-wrapper'>
           
-          <div class='footer-link-items'>
+          {/*<div class='footer-link-items'>
             <h2>Social Media</h2>
             <Link to='/'>Instagram</Link>
             <Link to='/'>Facebook</Link>
             <Link to='/'>Youtube</Link>
             <Link to='/'>Twitter</Link>
-          </div>
+          </div>*/}
         </div>
       </div>
       <section class='social-media'>

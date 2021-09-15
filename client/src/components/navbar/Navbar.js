@@ -3,14 +3,21 @@ import { Link } from "react-router-dom";
 import { Button } from '../button/Button';
 import './navbar.css';
 import '../../App.css'
+import { auth } from '../../config/firebase';
 
-const Navbar = () => {
+const Navbar = ({user}) => {
     const [click, setClick]=useState(false)
     const [button, setButton] = useState(true);
 
     const handleClick =()=> setClick(!click);
     const closeMobileMenu=()=> setClick(false);
     
+    
+  const handleLogout=()=>{
+    auth.signOut();
+  };
+ 
+
     const showButton=()=>{
         if(window.innerWidth <960){
             setButton(false);
@@ -60,8 +67,16 @@ const Navbar = () => {
                         </Link>
                         </li>
                     </ul>
-                    <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
-                    </Link>       
+                    
+
+                    {user?
+                    (
+                        <Link to='/home'><Button buttonStyle='btn--outline' onCLick={()=>handleLogout}  >LOGOUT</Button></Link>
+                    ):
+                    (
+                        <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
+                        </Link> 
+                    )}     
                 </div>
             </nav>
         </>

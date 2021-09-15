@@ -37,10 +37,12 @@ const LoginForm = (props) => {
                 <div className="btnContainer">
                     {
                         <>
-                        <button onClick={handleLogin}>Sign IN</button>
+                        <button className='login-button' onClick={handleLogin}>Sign IN</button>
                         <p>Don't have an account? 
                         <Link to ='/signup'><span onClick={handleSignup}>Sign UP</span></Link>
-                        
+                        <br/>
+                        <br/>
+                        <Link to='admin/dashboard'><button className='login-button' onClick={handleLogin}>Sign IN AS ADMIN</button></Link>
                         </p>
                         </>
                        
