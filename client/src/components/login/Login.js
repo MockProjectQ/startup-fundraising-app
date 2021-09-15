@@ -60,9 +60,6 @@ const Login = () => {
     });
   }
 
-  const handleLogout=()=>{
-    auth.signOut();
-  };
 
   const authListener=()=>{
     auth.onAuthStateChanged((user)=>{
@@ -83,9 +80,7 @@ const Login = () => {
 
   return (
     <div>
-     {user?(
-       <Profile handleLogout={handleLogout}/>
-     ):(
+     
       <LoginForm 
       email={email}
       setEmail={setEmail}
@@ -98,7 +93,7 @@ const Login = () => {
       emailError={emailError}
       passwordError={passwordError}
       />
-     )}
+     )
       
     </div>
   )

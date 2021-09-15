@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Profile() {
+function Profile({user}) {
     const classes = useStyles();
     const [startup,setStartup] = React.useState({})
 
@@ -36,7 +36,7 @@ function Profile() {
                 (startup && Object.keys(startup).length !== 0) ? (
                     <>
                     {/* Navbar */}
-                    <Navbar />
+                    <Navbar user={user}/>
         
                     {/* Main Details */}
                     <CompanyDetails role={role} startup={startup}/>
