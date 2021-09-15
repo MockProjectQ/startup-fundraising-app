@@ -22,11 +22,11 @@ export default function AdminDashboard() {
 
     useEffect(() => {
         document.body.style.backgroundColor = "#E5E5E5";
-        return () =>{
+        return () => {
             document.body.style.backgroundColor = null;
         }
     });
-    
+
     return (
         <div>
             <div className={classes.Hcontainer}>

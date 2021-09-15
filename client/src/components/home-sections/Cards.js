@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CompanyCard from '../companyCard/companyCard';
 import { Link } from 'react-router-dom';
+import { getAllStartUpDetails } from '../../services/startUpService';
 
 
 const useStyles = makeStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
         width: "100%",
         paddingBottom:"3%",
         boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
-        height: "35vh",
+        
         
     },
 
@@ -58,18 +59,19 @@ function Cards() {
     async function fetchList() {
 
         try {
-            //let result = await GetCompanyList();
-            let result = [];
+            let result = await getAllStartUpDetails();
+            result = result.slice(0,3);
+            /*let result = [];
             for (let i = 0; i < 3; i++) {
                 result.push({
                     "title": "New Company",
                     "created_at": "Just now",
                     "author_name": "Mohit",
-                    "content": "Officia elit est sunt magna irure veniam proident magna pariatur.",
+                    "description": "Officia elit est sunt magna irure veniam proident magna pariatur.",
                 });
                 
-            }
-            await setCards(result)
+            }*/
+            setCards(result)
             setResultCards(result)
         }
         catch (err) {
@@ -96,7 +98,7 @@ return (
     
     </div>
     <br/>
-    <Link to='/admin/list'><center><Button  buttonStyle='btn--viewall' >View All</Button></center>
+    <Link to='/Startups'><center><Button  buttonStyle='btn--viewall' >View All</Button></center>
     </Link>   
     </div>
 );
