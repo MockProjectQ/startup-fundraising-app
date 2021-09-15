@@ -60,7 +60,7 @@ const Login = () => {
     });
   }
 
-
+  
   const authListener=()=>{
     auth.onAuthStateChanged((user)=>{
       if(user){
@@ -94,7 +94,7 @@ const Login = () => {
       emailError={emailError}
       passwordError={passwordError}
       />
-     )
+     
       
     </div>
   )
