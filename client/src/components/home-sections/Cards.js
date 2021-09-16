@@ -1,6 +1,5 @@
 
 import './Cards.css';
-import CardItem from './CardItem';
 import { Button } from '../button/Button';
 import CompanyList from '../companyList/companyList';
 import React, { useState, useEffect } from 'react';
