@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom"
 import Card from '@material-ui/core/Card';
@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { CardHeader } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Person from '@material-ui/icons/Person';
+import { getUserById } from '../../services/UserService';
 
 const primary = "#3F51B5";
 const useStyles = makeStyles({
@@ -45,10 +46,28 @@ const useStyles = makeStyles({
 });
 
 export default function CompanyCard(props) {
+
+    const [userName,setUserName] = useState(null);
     const classes = useStyles();
     let history = useHistory()
     console.log("Reached Here ");
     console.log("Props ", props);
+
+    useEffect(() => {
+        async function fetchList() {
+            let results = []
+
+            try {
+                results = await getUserById(props.company.userId);
+                setUserName(results.name)
+            }
+            catch (err) {
+            }
+
+        }
+        fetchList()
+
+    }, []);
 
     const handleRedirect = () => {
         history.push({
@@ -69,7 +88,7 @@ export default function CompanyCard(props) {
 
                 title={props.company.companyName}
                 titleTypographyProps={{ variant: 'title', className: classes.headerTitle }}
-                subheader={"By XYZ"}// + props.user.name}
+                subheader={"By "+userName}// + props.user.name}
             />
             <CardContent>
 
