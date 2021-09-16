@@ -8,8 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import SignupDetails from './SignupDetails';
 import CompanyDetails from './CompanyDetails';
 import MoreDetails from './MoreDetails';
-import FinancialStatements from './FinancialStatements';
 import { Link } from 'react-router-dom';
+import { useLocation, useHistory } from "react-router-dom";
+import validateSignupForm from '../../helper/validateSignupForm';
+import { addUserDetails } from '../../services/UserService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,39 +39,58 @@ function getSteps() {
   return ['Sign up', 'Company Details', 'More Details'];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <SignupDetails />;
-    case 1:
-      return <CompanyDetails />;
-    case 2:
-      return <MoreDetails />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 function Signup() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
 
+  let history = useHistory()
+  const firstRender = React.useRef(true)
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+  const [formValues, setFormValues] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({});
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
+  const handleTagChange = async (event, value) => {
+    setFormValues({
+      ...formValues,
+      tags: value
+    })
+  }
+
+  const handleMediaChange = async (e) => {
+    const { name } = e.target
+    if (e.target.files[0]) {
+      setFormValues({
+        ...formValues,
+        [name]: e.target.files[0]
+      })
     }
 
+  }
+
+  const formValidation = () => {
+    const validationResponse = validateSignupForm(formValues)
+    setFormErrors(validationResponse.errors)
+  }
+
+  const handleNext = async () => {
+    if(activeStep==2){
+      const validationResponse = await validateSignupForm(formValues)
+      if(validationResponse.success){
+        await addUserDetails(formValues)
+      }
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
@@ -80,6 +101,43 @@ function Signup() {
   const goToProfile = () => {
     console.log("go to profile page")
   };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <SignupDetails
+          handleInputChange={handleInputChange}
+          formErrors={formErrors}
+          formValues={formValues}
+        />;
+
+      case 1:
+        return <CompanyDetails
+          handleInputChange={handleInputChange}
+          handleMediaChange={handleMediaChange}
+          formErrors={formErrors}
+          formValues={formValues}
+        />;
+      case 2:
+        return <MoreDetails
+          handleInputChange={handleInputChange}
+          handleMediaChange={handleMediaChange}
+          handleTagChange={handleTagChange}
+          formErrors={formErrors}
+          formValues={formValues}
+        />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+  React.useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    formValidation()
+  }, [formValues])
 
   return (
     <div className={classes.root}>
@@ -97,8 +155,8 @@ function Signup() {
             })}
           </Stepper>
         </Paper>
-          <Paper className={classes.paper} >
-        <div className={classes.formContent}>
+        <Paper className={classes.paper} >
+          <div className={classes.formContent}>
             {activeStep === steps.length ? (
               <div>
                 <Typography className={classes.instructions}>
@@ -111,7 +169,7 @@ function Signup() {
               </div>
             ) : (
               <div>
-                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                <div className={classes.instructions}>{getStepContent(activeStep)}</div>
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
@@ -128,8 +186,8 @@ function Signup() {
                 </div>
               </div>
             )}
-        </div>
-          </Paper>
+          </div>
+        </Paper>
       </Container>
     </div>
   );

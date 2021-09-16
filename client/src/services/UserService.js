@@ -19,4 +19,12 @@ async function getUserByEmail(email) {
     }
 }
 
-export { getUserById, getUserByEmail };
+async function addUserDetails(formValues) {
+    try {
+        console.log(formValues)        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { getUserById, getUserByEmail, addUserDetails };
