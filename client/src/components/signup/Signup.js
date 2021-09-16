@@ -99,7 +99,7 @@ function Signup() {
 
 
   const goToProfile = () => {
-    console.log("go to profile page")
+    history.push('/home')
   };
 
   function getStepContent(step) {
@@ -162,10 +162,10 @@ function Signup() {
                 <Typography className={classes.instructions}>
                   Successfully signed up!!
                 </Typography>
-                <Link to="/login"><Button onClick={goToProfile} className={classes.button}>
+                <Button onClick={goToProfile} className={classes.button}>
                   OK
                 </Button>
-                </Link>
+                
               </div>
             ) : (
               <div>

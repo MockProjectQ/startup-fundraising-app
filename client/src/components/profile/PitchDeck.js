@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignContent: 'center',
         "& canvas.react-pdf__Page__canvas": {
-            position: 'absolute',
+            position: 'relative',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%) rotate(0deg)',
