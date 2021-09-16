@@ -17,13 +17,17 @@ import { Tooltip } from '@material-ui/core';
 
 
 const primary = "#3F51B5";
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 
     mainContainer: {
         paddingTop: "5%",
         paddingBottom: "5%",
         width: "45%",
-
+        [theme.breakpoints.between('xs','sm')]:{
+            width :"100%",
+            margin :"auto",
+            //marginTop:"2.5%",
+        },
 
     },
     companyContainer: {
@@ -51,11 +55,23 @@ const useStyles = makeStyles({
     },
     avatar: {
         backgroundColor: primary,
+        minWidth:"40px",
+        //marginRight:"5px",
     },
     list: {
         boxShadow: "1px 2px 3px rgba(0,0,0,0.50)",
-    }
-});
+    },
+    singleItem:{
+        [theme.breakpoints.down('xs')]:{
+            padding:"4px",//marginTop:"2.5%",
+        },
+    },
+    iconbtn:{
+        [theme.breakpoints.down('xs')]:{
+            padding:"6px",//marginTop:"2.5%",
+        },
+    },
+}));
 
 export default function ForApprovalList() {
     const [result, setResult] = useState([]);
@@ -128,7 +144,7 @@ export default function ForApprovalList() {
 
                         {(result.length === 0) ?
                             <Typography variant="caption" component="h3" align="center">No New Startups</Typography> :
-                            result.map((item, ind, arr) => (<ListItem value={item}>
+                            result.map((item, ind, arr) => (<ListItem className = {classes.singleItem} value={item}>
                                 <ListItemAvatar>
                                     <Avatar src={item.companyLogo} className={classes.avatar} variant="square">
                                         {<PersonIcon />}
@@ -139,13 +155,13 @@ export default function ForApprovalList() {
                                     style={{ cursor: "pointer" }} onClick={() => { console.log(item) }} />
 
                                 <Tooltip title="Approve">
-                                    <IconButton aria-label="done" onClick={() => { startupApproval(item) }}>
+                                    <IconButton aria-label="done" className={classes.iconbtn} onClick={() => { startupApproval(item) }}>
                                         <DoneIcon style={{ color: green[500] }} />
                                     </IconButton>
                                 </Tooltip>
 
                                 <Tooltip title="Reject">
-                                    <IconButton aria-label="clear" onClick={() => { startupReject(item) }}>
+                                    <IconButton aria-label="clear" className={classes.iconbtn} onClick={() => { startupReject(item) }}>
                                         <ClearIcon style={{ color: red[500] }} />
                                     </IconButton>
                                 </Tooltip>

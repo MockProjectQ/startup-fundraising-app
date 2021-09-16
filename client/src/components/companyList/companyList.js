@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { getAllStartUpDetails } from '../../services/startUpService';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 
     mainContainer: {
         width: "90%",
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         paddingBottom: "3%",
         boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
         height: "100vh",
-        overflowY: "scroll",
+        overflowY: "auto",
     },
 
     searchContainer: {
@@ -32,8 +32,15 @@ const useStyles = makeStyles({
         paddingBottom: "2.5%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        
+        [theme.breakpoints.between('xs','sm')]:{
+            display:"block",
+            
+
+        },
     },
+
 
     searchField: {
         height: "100%",
@@ -43,7 +50,7 @@ const useStyles = makeStyles({
     },
 
     searchButton:{
-        width:"15%",
+        //width:"15%",
     },
 
     card: {
@@ -56,9 +63,13 @@ const useStyles = makeStyles({
         width: "35%",
         display: "flex",
         alignItems: "center",
+        [theme.breakpoints.between('xs','sm')]:{
+            width:"100%",
+            marginTop:"2.5%",
+        },
     }
 
-});
+}));
 
 export default function CompanyList() {
     const [cards, setCards] = useState([]);
@@ -146,7 +157,7 @@ export default function CompanyList() {
                             <Typography variant="h5" component="h2" style={{ margin: "auto", marginTop: "20%", color: "GrayText" }} >No Results Found</Typography> :
 
                             resultCards.map((item, ind, arr) => (
-                                <Grid item xs={4} className={classes.card}>
+                                <Grid item xs={12} sm={6} md={4} lg={4} className={classes.card}>
                                     <CompanyCard company={item} key={(ind + 1).toString()} />
                                 </Grid>
                             ))
