@@ -55,7 +55,7 @@ export default function ApprovedList() {
 
             try {
                 let result = await getAllStartUpDetails();
-                setResultCards(result.slice(0, 3))
+                setResultCards(result.slice(0, 3));
             }
             catch (err) {
             }
@@ -75,16 +75,16 @@ export default function ApprovedList() {
 
                 </Container>
 
-                <Grid container spacing={3}>
+                <Grid container className={classes.cardContainer} spacing={3}>
 
                     {(resultCards.length === 0) ?
 
                         <Typography variant="h6" component="h2" style={{ margin: "auto", color: "GrayText" }} >No Approved StartUps</Typography> :
-                        resultCards.map((item, ind, arr) => (<Grid item xs={12} sm={6} md={4} lg={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
+                        resultCards.map((item, ind, arr) => (<Grid item xs={12} sm={12} md={4} lg={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
                 </Grid>
 
                 <div className={classes.viewbtn}>
-                    <Button variant="contained" color="primary" onClick={() => { history.push('/admin/list') }}>
+                    <Button variant="contained" color="primary" onClick={() => { history.push('/startups') }}>
                         View All
                     </Button>
                 </div>

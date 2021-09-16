@@ -6,8 +6,6 @@ async function getAllStartUpDetails() {
     let response = await db.collection('start_ups').where("status","==","approved").get();
     response.docs.forEach(async (ele) => {
         let startupData = {...ele.data(), id: ele.id};
-        /*let user = await db.collection('user').doc(startupData.userId).get();
-        console.log("User ",user.data());*/
         results.push(startupData);
     })
 
@@ -24,7 +22,7 @@ async function getReportedStartUps() {
 
         let reportedData = ele.data();
         if(reportedData.status === "approved"){
-            results.push(reportedData);
+            results.push({...reportedData,id:ele.id});
         }
         
     })
@@ -37,7 +35,7 @@ async function getStartUpsForApproval() {
     let response = await db.collection('start_ups').where("status" , "==" , "pending").get();
     response.docs.forEach((ele) => {
         let approvalData = ele.data();
-        results.push(approvalData);
+        results.push({...approvalData, id : ele.id});
 
     })
 
@@ -45,19 +43,12 @@ async function getStartUpsForApproval() {
 }
 
 async function approveStartup(data){
-    db.collection('start_ups').where("CINNumber","==",data.CINNumber).get().then((snapshot)=>{
-        snapshot.forEach((doc)=>{
-            doc.ref.update({status:"approved",reports:0});
-        });
-    });
+    db.collection('start_ups').doc(data.id).update({status:"approved",reports:0});
 }
 
 async function rejectStartup(data){
-    db.collection('start_ups').where("CINNumber","==",data.CINNumber).get().then((snapshot)=>{
-        snapshot.forEach((doc)=>{
-            doc.ref.update({status:"rejected"});
-        });
-    });
+    db.collection('start_ups').doc(data.id).update({status:"rejected"});
+    
 }
 
 export { getAllStartUpDetails,

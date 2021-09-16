@@ -9,13 +9,12 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { getAllStartUpDetails } from '../../services/startUpService';
-import Navbar from '../navbar/Navbar';
 
 const useStyles = makeStyles(theme => ({
 
     mainContainer: {
         width: "90%",
-        marginTop: "1%",
+        marginTop: "5%",
         marginBottom: "5%",
         margin: "auto",
     },
@@ -130,10 +129,8 @@ export default function CompanyList() {
     }, [])
 
     return (
-        <div>
-        <Navbar/>
+
         <div className={classes.mainContainer}>
-            
             <div>
                 <Container maxWidth="xl" className={classes.companyContainer}>
                     <Container maxWidth="xl" className={classes.searchContainer}>
@@ -160,7 +157,7 @@ export default function CompanyList() {
                             <Typography variant="h5" component="h2" style={{ margin: "auto", marginTop: "20%", color: "GrayText" }} >No Results Found</Typography> :
 
                             resultCards.map((item, ind, arr) => (
-                                <Grid item xs={12} sm={6} md={4} lg={4} className={classes.card}>
+                                <Grid item xs={12} sm={12} md={4} lg={4} className={classes.card}>
                                     <CompanyCard company={item} key={(ind + 1).toString()} />
                                 </Grid>
                             ))
@@ -170,7 +167,6 @@ export default function CompanyList() {
 
                 </Container>
             </div>
-        </div>
         </div>
     );
 }
