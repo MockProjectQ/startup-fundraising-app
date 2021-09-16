@@ -96,7 +96,7 @@ const Navbar = () => {
                             user?
                             (
                             <>
-                            <Button buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
+                            <Button id="logout--button" buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
                             </>
                             )
                             :(
