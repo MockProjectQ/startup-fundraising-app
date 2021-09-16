@@ -74,6 +74,13 @@
   .menu-icon {
     display: none;
   }
+  #logout--button{
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid var(--primary);
+    padding:  8px 20px;
+    transition: all 0.3s ease-out;
+}
   
   @media screen and (max-width: 960px) {
     .NavbarItems {
@@ -81,8 +88,9 @@
 
     }
     #logout--button{
-      display:none;
+      display: none;
     }
+  
   
     .nav-menu {
       display: flex;

@@ -9,12 +9,13 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { getAllStartUpDetails } from '../../services/startUpService';
+import Navbar from '../navbar/Navbar';
 
 const useStyles = makeStyles({
 
     mainContainer: {
         width: "90%",
-        marginTop: "5%",
+        marginTop: "1%",
         marginBottom: "5%",
         margin: "auto",
     },
@@ -118,8 +119,10 @@ export default function CompanyList() {
     }, [])
 
     return (
-
+        <div>
+        <Navbar/>
         <div className={classes.mainContainer}>
+            
             <div>
                 <Container maxWidth="xl" className={classes.companyContainer}>
                     <Container maxWidth="xl" className={classes.searchContainer}>
@@ -156,6 +159,7 @@ export default function CompanyList() {
 
                 </Container>
             </div>
+        </div>
         </div>
     );
 }
