@@ -76,13 +76,12 @@ const Navbar = () => {
                             LOGIN
                         </Link>
                         </li>
+                       
                     </ul>
-
-                    <Button buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
-                    
                     
                         <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
                         </Link> 
+                        <Button buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
                       
                 </div>
             </nav>

@@ -85,8 +85,8 @@ return (
         <div>
     <Container maxWidth="xl" className={classes.companyContainer}>
        
-        <Grid container spacing={3}>
-            {resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
+        <Grid container spacing={3} id='grids' >
+            {resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card} id="grid-card"><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
         </Grid>
 
     </Container>

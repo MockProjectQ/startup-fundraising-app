@@ -4,7 +4,8 @@ import '../../App.css'
 export default function HeroSection() {
     return (
         
-        <><div className='home-container'>
+        <>
+        <div className='home-container'>
 
             <div className='left-flex'>
                 <h1 className='achieve-together'>ACHIEVE TOGETHER</h1>
