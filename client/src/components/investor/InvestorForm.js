@@ -41,7 +41,7 @@ const initialFormValues = {
 function InvestorForm() {
     const classes = useStyles();
 
-    const { companyName } = useLocation().state
+    const { id, companyName } = useLocation().state
     const [formValues, setFormValues] = React.useState(initialFormValues);
 
     const handleInputChange = (e) => {
@@ -58,7 +58,7 @@ function InvestorForm() {
         const validationResponse = validateInvestorForm(formValues)
         console.log(validationResponse.success)
         if (validationResponse.success){
-            addInvestor('FktzsQk2fdfnS08r9HXo', formValues)
+            addInvestor(id, formValues)
         }
         else{
             console.log(validationResponse.errors)

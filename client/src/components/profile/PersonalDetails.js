@@ -16,15 +16,14 @@ const useStyles = makeStyles((theme) => ({
 
 function PersonalDetails(props) {
     const classes = useStyles();
-    const { value, index } = props;
-    // const { name, email } = { name: "user", email: "sjdxh" };
+    const { value, index, userId } = props;
 
     const [name, setName] = React.useState("")
     const [email, setEmail] = React.useState("")
 
     React.useEffect(() => {
         const fetchPersonalDetails = async () => {
-            const { name, email } = await getUserById('BLo3M410injccmDdpZEz')
+            const { name, email } = await getUserById(userId)
             setName(name)
             setEmail(email)
         }

@@ -53,7 +53,7 @@ export default function CompanyCard(props) {
     const handleRedirect = () => {
         history.push({
             pathname: `/startup/${props.company.id}`,
-            state: { role:"", id:props.company.id }
+            state: { id:props.company.id }
         })
     }
 

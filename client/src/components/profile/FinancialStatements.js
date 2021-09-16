@@ -36,7 +36,7 @@ function FinancialStatements(props) {
             {/* Only accessed by users*/}
             {
               (role === config.role.user) && (
-                <AddStatementsDialog />
+                <AddStatementsDialog id={id} />
               )
             }
 

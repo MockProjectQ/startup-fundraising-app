@@ -146,7 +146,7 @@ function CompanyDetails(props) {
                     {
                         role === config.role.admin && (
                             <div className={classes.operations}>
-                                <Button variant="contained" size="small" className={classes.approve}>
+                                <Button variant="contained" size="small" className={classes.approved}>
                                     Approve
                                 </Button>
                                 <Button variant="contained" size="small" className={classes.reject}>

@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
 import Navbar from '../navbar/Navbar'
-import {getStartupByUser, getStartupById} from '../../services/getStartup';
-import config from '../../config/config.json'
+import { getStartupByUser, getStartupById } from '../../services/getStartup';
+import { auth } from '../../config/firebase';
+import { getUserByEmail } from '../../services/UserService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,32 +19,39 @@ function Profile() {
     const classes = useStyles();
     let history = useHistory()
     const [startup, setStartup] = React.useState({})
+    const [role, setRole] = React.useState('')
+    const [user, setUser] = React.useState('');
 
-    const location = useLocation()
     const state = useLocation().state
 
-    let role;
-
     const { id } = useParams()
-    console.log(id)
 
-    if (state) {
-        role = state.role
-    }
-    else {
-        role = ""
-    }
-
+    
     React.useEffect(() => {
+        const authListener = async () => {
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    setUser(user);
+                    const userData = await getUserByEmail(user.email)
+                    setRole(userData.role)
+                }
+                else {
+                    setUser("");
+                    setRole("")
+                }
+            });
+        };
+
         const fetchData = async () => {
+            await authListener();
             let startup;
-            if(id){
+            if (id) {
                 startup = await getStartupById(id)
             }
-            else if(state){
-                    startup = await getStartupByUser(state.id)
+            else if (state) {
+                startup = await getStartupByUser(state.id)
             }
-            else{
+            else {
                 history.push('/home')
             }
             setStartup(startup)
