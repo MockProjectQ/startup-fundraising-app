@@ -29,10 +29,6 @@ const useStyles = makeStyles({
         
         
     },
-
-    
-
-    
     card: {
         marginTop: "0.5%",
         marginBottom: "0.5%",

@@ -28,6 +28,7 @@ function ContentTabs(props) {
 
     // props
     const {
+        id,
         description,
         companyName,
         investmentRequired,
@@ -84,8 +85,8 @@ function ContentTabs(props) {
                     investmentRequired
                 }}
             />
-            <PitchDeck value={value} index={1} startup={{pitchDeck}}/>
-            <FinancialStatements value={value} index={2} role={role} />
+            <PitchDeck value={value} index={1} startup={{ pitchDeck }} />
+            <FinancialStatements value={value} index={2} role={role} id={id} />
 
             {/* Only Admin accessed tab panel */}
             {
@@ -99,7 +100,7 @@ function ContentTabs(props) {
                 (role === config.role.user) && (
                     [
                         <PersonalDetails key={'personalDetails'} value={value} index={3} />,
-                        <Investors key={'investors'} value={value} index={4} />
+                        <Investors key={'investors'} value={value} index={4} id={id} />
                     ]
                 )
             }

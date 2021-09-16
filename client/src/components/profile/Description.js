@@ -98,7 +98,7 @@ function Description(props) {
                         <Link
                           to={{
                             pathname: "/investor",
-                            state: {companyName}
+                            state: { companyName }
                           }}
                           className={classes.donateBtn}
                         >
@@ -118,7 +118,9 @@ function Description(props) {
                 {/* Only accessed by investors*/}
                 {
                   (role === config.role.others) && (
-                    <Button variant="outlined" className={classes.reportBtn}>Report</Button>
+                    <Button variant="outlined" className={classes.reportBtn}>
+                      Report
+                    </Button>
                   )
                 }
               </Grid>

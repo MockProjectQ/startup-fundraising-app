@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom"
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -45,10 +46,19 @@ const useStyles = makeStyles({
 
 export default function CompanyCard(props) {
     const classes = useStyles();
+    let history = useHistory()
     console.log("Reached Here ");
     console.log("Props ", props);
+
+    const handleRedirect = () => {
+        history.push({
+            pathname: `/startup/${props.company.id}`,
+            state: { role:"", id:props.company.id }
+        })
+    }
+
     return (
-        <Card className={classes.root} value={props.company} onClick={() => { console.log(props.company) }}>
+        <Card className={classes.root} value={props.company} onClick={ handleRedirect }>
             <CardHeader
                 className={classes.cardheader}
                 avatar={

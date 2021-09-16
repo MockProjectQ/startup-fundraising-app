@@ -1,10 +1,11 @@
 import React from 'react'
-import { useLocation} from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
 import Navbar from '../navbar/Navbar'
-import getStartupByUser from '../../services/getStartupByUser';
+import {getStartupByUser, getStartupById} from '../../services/getStartup';
+import config from '../../config/config.json'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,16 +16,36 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
     const classes = useStyles();
-    const [startup,setStartup] = React.useState({})
-    
+    let history = useHistory()
+    const [startup, setStartup] = React.useState({})
+
     const location = useLocation()
-    console.log(location.pathname)
-    const role = useLocation().state.userData.role
-    const id = useLocation().state.userData.id
-    
-    React.useEffect(()=> {
+    const state = useLocation().state
+
+    let role;
+
+    const { id } = useParams()
+    console.log(id)
+
+    if (state) {
+        role = state.role
+    }
+    else {
+        role = ""
+    }
+
+    React.useEffect(() => {
         const fetchData = async () => {
-            const startup = await getStartupByUser(id)
+            let startup;
+            if(id){
+                startup = await getStartupById(id)
+            }
+            else if(state){
+                    startup = await getStartupByUser(state.id)
+            }
+            else{
+                history.push('/home')
+            }
             setStartup(startup)
         }
         fetchData();
@@ -36,16 +57,16 @@ function Profile() {
             {
                 (startup && Object.keys(startup).length !== 0) ? (
                     <>
-                    {/* Navbar */}
-                    <Navbar />
-        
-                    {/* Main Details */}
-                    <CompanyDetails role={role} startup={startup}/>
-        
-                    {/* More Details */}
-                    <ContentTabs role={role} startup={startup}/>
+                        {/* Navbar */}
+                        <Navbar />
+
+                        {/* Main Details */}
+                        <CompanyDetails role={role} startup={startup} />
+
+                        {/* More Details */}
+                        <ContentTabs role={role} startup={startup} />
                     </>
-                ): (
+                ) : (
                     <h1>Loading...</h1>
                 )
             }
