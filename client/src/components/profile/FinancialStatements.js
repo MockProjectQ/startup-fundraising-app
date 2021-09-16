@@ -24,7 +24,7 @@ function FinancialStatements(props) {
 
     }
     fetchFinancialData();
-  }, [])
+  }, [statements])
 
   
   return (

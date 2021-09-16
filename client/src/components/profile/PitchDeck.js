@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%) rotate(0deg)',
+            height: 'auto !important',
+            maxWidth: '100vw'
         },
     },
     pdfContainer: {

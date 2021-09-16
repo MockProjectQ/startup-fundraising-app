@@ -13,10 +13,11 @@ const useStyles = makeStyles({
     },
     pos: {
         margin: '12px 0',
-        width: '50%',
+        minWidth: '50%',
     },
     investorContact: {
         display: 'flex',
+        flexWrap: 'wrap',
         width: '100%',
         alignItems: 'space-between'
     },
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
     amount: {
         fontWeight: 'bold',
         margin: '12px 0',
-        width: '50%',
+        minWidth: '50%',
     }
 });
 

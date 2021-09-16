@@ -41,6 +41,7 @@ function AddStatementsDialog(props) {
         e.preventDefault();
         if(file && statementName && year) {
             addFinancialStatement(id, {year: year.getFullYear(), statementName, file})
+            setOpen(false)
         }
         else{
             console.log("error")

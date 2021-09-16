@@ -49,6 +49,8 @@ function ContentTabs(props) {
                     indicatorColor="primary"
                     textColor="primary"
                     onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons="auto"
                 >
                     {/* Common Tabs */}
                     <Tab label="Description" />

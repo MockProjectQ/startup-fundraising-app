@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme) => ({
     },
     pdfFileButtons: {
         '& > *': {
-            marginRight: '1em',
+            margin: '1em',
             textTransform: 'none'
         },
+        flexWrap: 'wrap'
     },
 }));
 

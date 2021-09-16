@@ -14,7 +14,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
 
-import { green, red, amber } from '@material-ui/core/colors'
+import { green, red, amber, blue } from '@material-ui/core/colors'
 import config from "../../config/config.json";
 
 
@@ -25,8 +25,11 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         },
         boxShadow: theme.shadows[3],
-        padding: '1em 3em',
-        background: '#ffffff'
+        padding: '1em',
+        background: '#ffffff',
+        [theme.breakpoints.up('md')]: {
+            padding: '1em 3em',
+        }
     },
     content: {
         flexGrow: 1,
@@ -46,13 +49,36 @@ const useStyles = makeStyles((theme) => ({
     },
     cinNumber: {
         marginLeft: '1em',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        [theme.breakpoints.down('sm')]: {
+            margin: 0,
+            fontSize: '0.5em'
+        }
     },
     mainTop: {
         display: 'flex',
+        flexWrap: 'wrap'
     },
     companyName: {
         flexGrow: 1
+    },
+    mailIcon: {
+        color: red[700],
+        border: '2px solid',
+        padding: '1px',
+        borderRadius: '5px'
+    },
+    phoneIcon: {
+        color: green[700],
+        border: '2px solid',
+        padding: '1px',
+        borderRadius: '5px'
+    },
+    addressIcon: {
+        color: blue[700],
+        border: '2px solid',
+        padding: '1px',
+        borderRadius: '5px'
     },
     pending: {
         color: theme.palette.getContrastText(amber[500]),
@@ -164,7 +190,7 @@ function CompanyDetails(props) {
                     {/* Email */}
                     <Grid item xs={12} sm={6}>
                         <Typography variant="caption" color="textSecondary" gutterBottom className={classes.details}>
-                            <MailOutlineIcon fontSize="small" />
+                            <MailOutlineIcon fontSize="small" className={classes.mailIcon}/>
                             <span className={classes.detailsText}>email: {companyEmail}</span>
                         </Typography>
 
@@ -173,7 +199,7 @@ function CompanyDetails(props) {
                     {/* Phone */}
                     <Grid item xs={12} sm={6}>
                         <Typography variant="caption" color="textSecondary" gutterBottom className={classes.details}>
-                            <PhoneIcon fontSize="small" />
+                            <PhoneIcon fontSize="small" className={classes.phoneIcon} />
                             <span className={classes.detailsText}>phone: {companyPhone}</span>
                         </Typography>
                     </Grid>
@@ -181,7 +207,7 @@ function CompanyDetails(props) {
                     {/* Location */}
                     <Grid item xs={12} sm={6}>
                         <Typography variant="caption" color="textSecondary" gutterBottom className={classes.details}>
-                            <LocationOnIcon fontSize="small" />
+                            <LocationOnIcon fontSize="small" className={classes.addressIcon} />
                             <span className={classes.detailsText}>{companyAddress}</span>
                         </Typography>
                     </Grid>

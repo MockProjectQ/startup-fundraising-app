@@ -99,7 +99,7 @@ function Signup() {
 
 
   const goToProfile = () => {
-    history.push('/home')
+    history.push('/login')
   };
 
   function getStepContent(step) {
