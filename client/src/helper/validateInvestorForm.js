@@ -2,40 +2,50 @@ import {isEmpty, isAlpha, isEmail, isLength, isInt} from 'validator';
 
 
 export default function validateInvestorForm(formValues) {
-    const errors = [];
+    const errors = {};
 
     // Name validation
-    if(isEmpty(formValues.fullname)){
-        errors.push({fullname: "Must not be empty"})
+    if('fullname' in formValues){
+        if(isEmpty(formValues.fullname)){
+            errors['fullname'] = "Must not be empty"
+        }
     }
 
     // Email validation
-    if(isEmpty(formValues.email)){
-        errors.push({email: "Must not be empty"})
-    }
-    else if (!isEmail(formValues.email)){
-        errors.push({email: "Must be a valid email"})
+    if('email' in formValues){
+        if(isEmpty(formValues.email)){
+            errors['email'] = "Must not be empty"
+        }
+        else if (!isEmail(formValues.email)){
+            errors['email'] = "Must be a valid email"
+        }
     }
     
     // Phone validation
-    if(isEmpty(formValues.phone)){
-        errors.push({phone: "Must not be empty"})
-    }
-    else if (!isLength(formValues.phone, {min: 10, max: 10  })){
-        errors.push({phone: "Must be exactly 10 digits"})
+    if('phone' in formValues){
+        if(isEmpty(formValues.phone)){
+            errors['phone'] = "Must not be empty"
+        }
+        else if (!isLength(formValues.phone, {min: 10, max: 10  })){
+            errors['phone'] = "Must be exactly 10 digits"
+        }
     }
 
     // minimum Investment validation
-    if(!isInt(formValues.minAmount.toString(),{gt: 0})){
-        errors.push({minAmount: "Must be greater than 0"})
+    if('minAmount' in formValues){
+        if(!isInt(formValues.minAmount.toString(),{gt: 0})){
+            errors['minAmount'] = "Must be greater than 0"
+        }
     }
     
     // maximum Investment validation
-    if(!isInt(formValues.maxAmount.toString(),{gt: formValues.minAmount})){
-        errors.push({maxAmount: "Must be greater than minimum investment"})
+    if('maxAmount' in formValues){
+        if(!isInt(formValues.maxAmount.toString(),{gt: formValues.minAmount})){
+            errors['maxAmount'] = "Must be greater than minimum investment"
+        }
     }
 
 
-    if(errors.length) return {success:false, errors: errors}
-    return {success: true}
+    if(Object.keys(errors).length) return {success:false, errors: errors}
+    return {success: true, errors:{}}
 }

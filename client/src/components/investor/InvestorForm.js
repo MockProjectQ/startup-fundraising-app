@@ -1,12 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import { useLocation, useHistory } from "react-router-dom";
+
 import {
     Container,
     Paper,
     TextField,
     Button,
 } from '@material-ui/core';
-import { useLocation } from 'react-router';
 import validateInvestorForm from '../../helper/validateInvestorForm';
 import { addInvestor } from '../../services/InvestorService';
 
@@ -29,22 +30,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const initialFormValues = {
-    fullname: "",
-    email: "",
-    phone: "",
-    about: "",
-    minAmount: 0,
-    maxAmount: 0
-}
-
 function InvestorForm() {
     const classes = useStyles();
+    let history = useHistory()
+    const firstRender = React.useRef(true)
 
     const { id, companyName } = useLocation().state
-    const [formValues, setFormValues] = React.useState(initialFormValues);
+    const [formValues, setFormValues] = React.useState({});
+    const [formErrors, setFormErrors] = React.useState({});
 
-    const handleInputChange = (e) => {
+
+    const handleInputChange = async (e) => {
         const { name, value } = e.target
         setFormValues({
             ...formValues,
@@ -56,14 +52,26 @@ function InvestorForm() {
         e.preventDefault();
         console.log(formValues)
         const validationResponse = validateInvestorForm(formValues)
-        console.log(validationResponse.success)
-        if (validationResponse.success){
+        if (validationResponse.success) {
             addInvestor(id, formValues)
         }
-        else{
-            console.log(validationResponse.errors)
+        else {
+            setFormErrors(validationResponse.errors)
         }
     }
+
+    const formValidation = () => {
+        const validationResponse = validateInvestorForm(formValues)
+        setFormErrors(validationResponse.errors)
+    }
+
+    React.useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false 
+            return 
+        }
+        formValidation()
+    }, [formValues])
 
     return (
         <div className={classes.root}>
@@ -76,7 +84,6 @@ function InvestorForm() {
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            
                             fullWidth
                             id="fullname"
                             label="Full Name"
@@ -84,29 +91,36 @@ function InvestorForm() {
                             autoComplete="name"
                             autoFocus
                             onChange={handleInputChange}
+                            error={Boolean(formErrors.fullname)}
+                            helperText={formErrors.fullname}
+                            required
                         />
 
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            
                             fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
                             onChange={handleInputChange}
+                            error={Boolean(formErrors.email)}
+                            helperText={formErrors.email}
+                            required
                         />
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            
                             fullWidth
                             name="phone"
                             label="Contact Number"
                             type="number"
                             id="phone"
                             onChange={handleInputChange}
+                            error={Boolean(formErrors.phone)}
+                            helperText={formErrors.phone}
+                            required
                         />
                         <TextField
                             variant="outlined"
@@ -123,28 +137,32 @@ function InvestorForm() {
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            
                             fullWidth
                             name="minAmount"
                             label="Minimum Investment"
                             type="number"
                             id="minAmount"
                             onChange={handleInputChange}
+                            error={Boolean(formErrors.minAmount)}
+                            helperText={formErrors.minAmount}
+                            required
                         />
                         <TextField
                             variant="outlined"
                             margin="normal"
-                            
                             fullWidth
                             name="maxAmount"
                             label="Maximum Investment"
                             type="number"
                             id="maxAmount"
                             onChange={handleInputChange}
+                            error={Boolean(formErrors.maxAmount)}
+                            helperText={formErrors.maxAmount}
+                            required
                         />
 
                         <div className={classes.buttons}>
-                            <Button>
+                            <Button onClick={(()=>history.goBack())}>
                                 Cancel
                             </Button>
                             <Button
