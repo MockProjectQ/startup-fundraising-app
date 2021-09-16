@@ -11,13 +11,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MoreDetails() {
+function MoreDetails(props) {
     const classes = useStyles();
+    const {handleInputChange, formErrors, formValues, handleTagChange, handleMediaChange} = props
+
     return (
-        <div>
-            <form key={"haha"}> {/* onSubmit={handleSubmit}> */}
+            <form key={"haha"}>
                 <TextField
-                    // inputRef={password}
                     variant="outlined"
                     margin="normal"
                     required
@@ -26,28 +26,33 @@ function MoreDetails() {
                     label="Description About Company"
                     id="description"
                     multiline
-                    rows={5}
+                    minRows={5}
                     maxRows={8}
                     autoFocus
+                    onChange={handleInputChange}
+                    error={Boolean(formErrors.description)}
+                    helperText={formErrors.description}
+                    value={formValues.description}
                 />
 
                 <Autocomplete
                     multiple
                     freeSolo
                     id="tags-outlined"
-                    options={["technology", "computers", "arts", "graphics", "products", "something", "others"]}
+                    options={["technology", "computers", "arts", "graphics", "products", "others"]}
+                    name="tags"
+                    onChange={handleTagChange}
                     renderInput={params => (
                         <TextField
                             {...params}
                             variant="outlined"
-                            label="filterSelectedOptions"
+                            label="Add New Tag"
                             placeholder="New Tag"
                         />
                     )}
                 />
 
                 <TextField
-                    // inputRef={password}
                     variant="outlined"
                     margin="normal"
                     required
@@ -56,10 +61,13 @@ function MoreDetails() {
                     label="Investment Required (in ₹)"
                     type="number"
                     id="investmentRequired"
+                    onChange={handleInputChange}
+                    error={Boolean(formErrors.investmentRequired)}
+                    helperText={formErrors.investmentRequired}
+                    value={formValues.investmentRequired}
                 />
 
                 <TextField
-                    // inputRef={password}
                     variant="outlined"
                     margin="normal"
                     required
@@ -68,6 +76,10 @@ function MoreDetails() {
                     label="Expected ROI to the Investors(in % p.a.)"
                     type="number"
                     id="expectedROI"
+                    onChange={handleInputChange}
+                    error={Boolean(formErrors.expectedROI)}
+                    helperText={formErrors.expectedROI}
+                    value={formValues.expectedROI}
                 />
 
                 <div className={classes.fileUpload}>
@@ -76,6 +88,8 @@ function MoreDetails() {
                         className={classes.input}
                         id="pitchDeck"
                         type="file"
+                        name="pitchDeck"
+                        onChange={handleMediaChange}
                     />
                     <label htmlFor="pitchDeck">
                         <Button variant="contained" color="primary" component="span">
@@ -85,8 +99,6 @@ function MoreDetails() {
                 </div>
 
             </form>
-
-        </div>
     )
 }
 

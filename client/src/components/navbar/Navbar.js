@@ -6,6 +6,8 @@ import '../../App.css'
 import { auth } from '../../config/firebase';
 
 const Navbar = () => {
+    const user=auth.currentUser;
+    console.log(user)
     const history = useHistory();
     const [click, setClick]=useState(false)
     const [button, setButton] = useState(true);
@@ -72,17 +74,42 @@ const Navbar = () => {
                         </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
-                            LOGIN
-                        </Link>
+                        {
+                            user?
+                            (
+                                <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu, handleLogout}>
+                                    LOGOUT
+                                </Link>
+                        
+                            )
+                            :(
+                                <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
+                                    LOGIN
+                                </Link>
+                            )
+                        }
+                        
                         </li>
+                       
                     </ul>
-
-                    <Button buttonStyle='btn--outline' onClick={handleLogout }  >LOGOUT</Button>
+                        {
+                            user?
+                            (
+                            <>
+                            <button id="logout--button" onClick={handleLogout }  >LOGOUT</button>
+                            </>
+                            )
+                            :(
+                                <>      
+                                    <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >
+                                        LOGIN</Button>}
+                                    </Link> 
+                                </>
+                            )
+                        }
                     
-                    
-                        <Link to= '/login'>{button && <Button buttonStyle='btn--outline'  >LOGIN</Button>}
-                        </Link> 
+                        
+                        
                       
                 </div>
             </nav>

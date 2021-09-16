@@ -49,6 +49,7 @@ function Description(props) {
   const role = props.role;
 
   const {
+    id,
     description,
     companyName,
     investmentRequired
@@ -98,7 +99,7 @@ function Description(props) {
                         <Link
                           to={{
                             pathname: "/investor",
-                            state: {companyName}
+                            state: { id, companyName }
                           }}
                           className={classes.donateBtn}
                         >
@@ -118,7 +119,9 @@ function Description(props) {
                 {/* Only accessed by investors*/}
                 {
                   (role === config.role.others) && (
-                    <Button variant="outlined" className={classes.reportBtn}>Report</Button>
+                    <Button variant="outlined" className={classes.reportBtn}>
+                      Report
+                    </Button>
                   )
                 }
               </Grid>

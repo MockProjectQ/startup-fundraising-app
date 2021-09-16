@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function AddStatementsDialog() {
+function AddStatementsDialog(props) {
     const classes = useStyles();
+    const { id } = props;
 
     const [open, setOpen] = React.useState(false);
 
@@ -39,7 +40,8 @@ function AddStatementsDialog() {
     const handleUpload = (e) => {
         e.preventDefault();
         if(file && statementName && year) {
-            addFinancialStatement('FktzsQk2fdfnS08r9HXo', {year: year.getFullYear(), statementName, file})
+            addFinancialStatement(id, {year: year.getFullYear(), statementName, file})
+            setOpen(false)
         }
         else{
             console.log("error")

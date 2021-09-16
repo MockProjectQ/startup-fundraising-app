@@ -13,18 +13,18 @@ const useStyles = makeStyles((theme) => ({
 
 function FinancialStatements(props) {
   const classes = useStyles();
-  const { role, value, index } = props;
+  const { role, value, index, id } = props;
 
   const [statements, setStatements] = React.useState([])
 
   React.useEffect(() => {
     const fetchFinancialData = async () => {
-      const response = await getFinancialData('FktzsQk2fdfnS08r9HXo');
+      const response = await getFinancialData(id);
       setStatements(response)
 
     }
     fetchFinancialData();
-  }, [])
+  }, [statements])
 
   
   return (
@@ -36,7 +36,7 @@ function FinancialStatements(props) {
             {/* Only accessed by users*/}
             {
               (role === config.role.user) && (
-                <AddStatementsDialog />
+                <AddStatementsDialog id={id} />
               )
             }
 

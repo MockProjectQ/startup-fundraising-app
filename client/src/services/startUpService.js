@@ -5,7 +5,7 @@ async function getAllStartUpDetails() {
     let results = []
     let response = await db.collection('start_ups').where("status","==","approved").get();
     response.docs.forEach(async (ele) => {
-        let startupData = ele.data();
+        let startupData = {...ele.data(), id: ele.id};
         /*let user = await db.collection('user').doc(startupData.userId).get();
         console.log("User ",user.data());*/
         results.push(startupData);

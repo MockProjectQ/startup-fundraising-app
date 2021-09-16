@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Investors(props) {
     const classes = useStyles();
-    const { value, index } = props;
+    const { value, index, id } = props;
 
     const [investors, setInvestors] = React.useState([])
 
     React.useEffect(() => {
         const fetchInvestorsData = async () => {
-            const response = await getInvestors('FktzsQk2fdfnS08r9HXo');
+            const response = await getInvestors(id);
             setInvestors(response)
 
         }

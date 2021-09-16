@@ -72,7 +72,7 @@ const Login = () => {
     else if(userData.role === "user") {
       history.push({
         pathname: '/profile',
-        state: { userData }
+        state: { id: userData.id }
       })
     }
     else{

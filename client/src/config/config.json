@@ -7,6 +7,6 @@
         "status": {
             "approved": "Approved",
             "pending": "Pending",
-            "reject": "Rejected"
+            "rejected": "Rejected"
         }
     }

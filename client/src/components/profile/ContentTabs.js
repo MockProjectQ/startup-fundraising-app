@@ -28,10 +28,12 @@ function ContentTabs(props) {
 
     // props
     const {
+        id,
         description,
         companyName,
         investmentRequired,
-        pitchDeck
+        pitchDeck,
+        userId
     } = props.startup;
 
     // Handle Tab change
@@ -47,6 +49,8 @@ function ContentTabs(props) {
                     indicatorColor="primary"
                     textColor="primary"
                     onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons="auto"
                 >
                     {/* Common Tabs */}
                     <Tab label="Description" />
@@ -79,18 +83,19 @@ function ContentTabs(props) {
                 index={0}
                 role={role}
                 startup={{
+                    id,
                     description,
                     companyName,
                     investmentRequired
                 }}
             />
-            <PitchDeck value={value} index={1} startup={{pitchDeck}}/>
-            <FinancialStatements value={value} index={2} role={role} />
+            <PitchDeck value={value} index={1} startup={{ pitchDeck }} />
+            <FinancialStatements value={value} index={2} role={role} id={id} />
 
             {/* Only Admin accessed tab panel */}
             {
                 (role === config.role.admin) && (
-                    <PersonalDetails value={value} index={3} />
+                    <PersonalDetails value={value} index={3} userId={userId} />
                 )
             }
 
@@ -98,8 +103,8 @@ function ContentTabs(props) {
             {
                 (role === config.role.user) && (
                     [
-                        <PersonalDetails key={'personalDetails'} value={value} index={3} />,
-                        <Investors key={'investors'} value={value} index={4} />
+                        <PersonalDetails key={'personalDetails'} value={value} index={3} userId={userId} />,
+                        <Investors key={'investors'} value={value} index={4} id={id} />
                     ]
                 )
             }

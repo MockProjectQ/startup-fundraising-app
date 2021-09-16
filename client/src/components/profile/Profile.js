@@ -1,10 +1,12 @@
 import React from 'react'
-import { useLocation} from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CompanyDetails from './CompanyDetails'
 import ContentTabs from './ContentTabs'
 import Navbar from '../navbar/Navbar'
-import getStartupByUser from '../../services/getStartupByUser';
+import { getStartupByUser, getStartupById } from '../../services/getStartup';
+import { auth } from '../../config/firebase';
+import { getUserByEmail } from '../../services/UserService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,16 +17,43 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
     const classes = useStyles();
-    const [startup,setStartup] = React.useState({})
+    let history = useHistory()
+    const [startup, setStartup] = React.useState({})
+    const [role, setRole] = React.useState('')
+    const [user, setUser] = React.useState('');
+
+    const state = useLocation().state
+
+    const { id } = useParams()
+
     
-    const location = useLocation()
-    console.log(location.pathname)
-    const role = useLocation().state.userData.role
-    const id = useLocation().state.userData.id
-    
-    React.useEffect(()=> {
+    React.useEffect(() => {
+        const authListener = async () => {
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    setUser(user);
+                    const userData = await getUserByEmail(user.email)
+                    setRole(userData.role)
+                }
+                else {
+                    setUser("");
+                    setRole("")
+                }
+            });
+        };
+
         const fetchData = async () => {
-            const startup = await getStartupByUser(id)
+            await authListener();
+            let startup;
+            if (id) {
+                startup = await getStartupById(id)
+            }
+            else if (state) {
+                startup = await getStartupByUser(state.id)
+            }
+            else {
+                history.push('/home')
+            }
             setStartup(startup)
         }
         fetchData();
@@ -36,16 +65,16 @@ function Profile() {
             {
                 (startup && Object.keys(startup).length !== 0) ? (
                     <>
-                    {/* Navbar */}
-                    <Navbar />
-        
-                    {/* Main Details */}
-                    <CompanyDetails role={role} startup={startup}/>
-        
-                    {/* More Details */}
-                    <ContentTabs role={role} startup={startup}/>
+                        {/* Navbar */}
+                        <Navbar />
+
+                        {/* Main Details */}
+                        <CompanyDetails role={role} startup={startup} />
+
+                        {/* More Details */}
+                        <ContentTabs role={role} startup={startup} />
                     </>
-                ): (
+                ) : (
                     <h1>Loading...</h1>
                 )
             }

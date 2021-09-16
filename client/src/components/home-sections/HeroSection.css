@@ -1,13 +1,20 @@
 
 .home-container{
     display: flex;
-    background: linear-gradient( 
-90deg
- , rgb(235, 242, 242) 0%, rgb(235, 242, 242) 100%);
+    background: linear-gradient( 90deg , rgb(235, 242, 242) 0%, rgb(235, 242, 242) 100%);
     justify-content: space-between;
     align-items: center;
     padding: 0;
     margin: 0;
+}
+.left-flex{
+    position: relative;
+    width: 600px;
+    height: 700px;
+    display: flex;
+    background-size: 500px 600px;
+    margin-left: 10px;
+    background-repeat: no-repeat;
 }
 .right-flex{
     position: relative;
@@ -25,7 +32,7 @@
     width: 434px;
     height: 221px;
     left: 120px;
-    top: 250px;
+    top: 100px;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -39,9 +46,9 @@
 }
 .intro-para{
     position: relative;
-    top: 450px;
+    top: 300px;
     position: absolute;
-    width: 649px;
+    width: 100%;
     height: 171px;
     left: 34px;
     /* top: 512px; */
@@ -85,3 +92,76 @@
       color: #3F51B5;
      
   }
+
+  @media screen and (max-width: 1320px)
+  {
+      .home-container{
+          flex-direction: column;
+      }
+      .achieve-together{
+          top:50px;
+          align-items: center;
+      }
+      .intro-para{
+        top: 200px;
+        left: 0px;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 30px;
+       
+    }
+    .left-flex{
+        height: 400px;
+    }
+      
+    .right-flex{
+        position: relative;
+        width: 100%;
+        background-size: 100% 90%;
+        margin-right: 0px;
+        background-repeat: no-repeat;
+    }
+  }
+  @media screen and (max-width: 625px)
+  {
+      .home-container{
+          flex-direction: column;
+      }
+      .achieve-together{
+        top: 50px;
+        width: 100%;
+        align-items: center;
+        left: 0px;
+        font-size: 55px;
+      }
+      intro-para {
+        top: 250px;
+        left: 0px;
+        align-items: center;
+        display: flex;
+        width: fit-content;
+      
+    }
+    .left-flex{
+
+        height: 400px;
+        width: 100%;
+
+    }
+      
+    .right-flex {
+    position: relative;
+    width: 100%;
+    background-size: 100% 90%;
+    margin-right: 0px;
+    background-repeat: no-repeat;
+    top: 10px;
+    }
+    .video-startup {
+        height: 400px;
+    }
+    .hero-container{
+        height: 450px;
+    }
+  }
+ 
