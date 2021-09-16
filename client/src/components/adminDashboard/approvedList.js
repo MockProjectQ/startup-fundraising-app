@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { getAllStartUpDetails } from '../../services/startUpService';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 
     mainContainer: {
         paddingTop: "5%",
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     }
 
 
-});
+}));
 
 export default function ApprovedList() {
     const [resultCards, setResultCards] = useState([]);
@@ -79,8 +79,8 @@ export default function ApprovedList() {
 
                     {(resultCards.length === 0) ?
 
-                        <Typography variant="h5" component="h2" style={{ margin: "auto", color: "GrayText" }} >Nothing to Display</Typography> :
-                        resultCards.map((item, ind, arr) => (<Grid item xs={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
+                        <Typography variant="h6" component="h2" style={{ margin: "auto", color: "GrayText" }} >No Approved StartUps</Typography> :
+                        resultCards.map((item, ind, arr) => (<Grid item xs={12} sm={6} md={4} lg={4} className={classes.card}><CompanyCard company={item} key={(ind + 1).toString()} /></Grid>))}
                 </Grid>
 
                 <div className={classes.viewbtn}>

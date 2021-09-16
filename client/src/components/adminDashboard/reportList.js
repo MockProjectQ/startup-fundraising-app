@@ -16,13 +16,17 @@ import { Tooltip } from '@material-ui/core';
 import { getReportedStartUps, approveStartup, rejectStartup } from '../../services/startUpService';
 
 const primary = "#3F51B5";
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 
     mainContainer: {
         paddingTop: "5%",
         paddingBottom: "5%",
         width: "45%",
-
+        [theme.breakpoints.between('xs','sm')]:{
+            width :"100%",
+            margin :"auto",
+            //marginTop:"2.5%",
+        },
     },
     companyContainer: {
         backgroundColor: "#FFFFFF",
@@ -54,7 +58,7 @@ const useStyles = makeStyles({
         boxShadow: "1px 2px 3px rgba(0,0,0,0.50)",
     },
 
-});
+}));
 
 export default function ReportList() {
     const [result, setResult] = useState([]);

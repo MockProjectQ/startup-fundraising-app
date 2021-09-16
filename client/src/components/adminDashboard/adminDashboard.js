@@ -6,7 +6,7 @@ import ReportList from '../adminDashboard/reportList'
 import Navbar from '../navbar/Navbar';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 
     Hcontainer: {
         paddingTop: "5%",
@@ -15,8 +15,12 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        [theme.breakpoints.between('xs','sm')]:{
+            display :"block",
+            //marginTop:"2.5%",
+        },
     },
-});
+}));
 
 export default function AdminDashboard() {
     const classes = useStyles();
