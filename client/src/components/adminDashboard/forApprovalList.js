@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom"
 import Container from "@material-ui/core/Container";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -23,9 +24,9 @@ const useStyles = makeStyles(theme => ({
         paddingTop: "5%",
         paddingBottom: "5%",
         width: "45%",
-        [theme.breakpoints.between('xs','sm')]:{
-            width :"100%",
-            margin :"auto",
+        [theme.breakpoints.between('xs', 'sm')]: {
+            width: "100%",
+            margin: "auto",
             //marginTop:"2.5%",
         },
 
@@ -55,26 +56,27 @@ const useStyles = makeStyles(theme => ({
     },
     avatar: {
         backgroundColor: primary,
-        minWidth:"40px",
+        minWidth: "40px",
         //marginRight:"5px",
     },
     list: {
         boxShadow: "1px 2px 3px rgba(0,0,0,0.50)",
     },
-    singleItem:{
-        [theme.breakpoints.down('xs')]:{
-            padding:"4px",//marginTop:"2.5%",
+    singleItem: {
+        [theme.breakpoints.down('xs')]: {
+            padding: "4px",//marginTop:"2.5%",
         },
     },
-    iconbtn:{
-        [theme.breakpoints.down('xs')]:{
-            padding:"6px",//marginTop:"2.5%",
+    iconbtn: {
+        [theme.breakpoints.down('xs')]: {
+            padding: "6px",//marginTop:"2.5%",
         },
     },
 }));
 
 export default function ForApprovalList() {
     const [result, setResult] = useState([]);
+    let history = useHistory()
 
     const classes = useStyles();
 
@@ -144,7 +146,7 @@ export default function ForApprovalList() {
 
                         {(result.length === 0) ?
                             <Typography variant="caption" component="h3" align="center">No New Startups</Typography> :
-                            result.map((item, ind, arr) => (<ListItem className = {classes.singleItem} value={item}>
+                            result.map((item, ind, arr) => (<ListItem className={classes.singleItem} value={item}>
                                 <ListItemAvatar>
                                     <Avatar src={item.companyLogo} className={classes.avatar} variant="square">
                                         {<PersonIcon />}
@@ -152,7 +154,11 @@ export default function ForApprovalList() {
                                 </ListItemAvatar >
                                 <ListItemText
                                     primary={item.companyName}
-                                    style={{ cursor: "pointer" }} onClick={() => { console.log(item) }} />
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => history.push({
+                                        pathname: `/startup/${item.id}`,
+                                        state: { id: item.id }
+                                    })} />
 
                                 <Tooltip title="Approve">
                                     <IconButton aria-label="done" className={classes.iconbtn} onClick={() => { startupApproval(item) }}>

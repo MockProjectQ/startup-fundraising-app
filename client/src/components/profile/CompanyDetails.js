@@ -213,7 +213,11 @@ function CompanyDetails(props) {
                 }
 
 
-                <IconButton aria-label="edit" onClick={() => history.push(`/edit/${id}`)} >
+                <IconButton aria-label="edit"
+                  onClick={() => history.push({
+                    pathname: `/edit/${id}`,
+                    state: { data: props.startup }
+                  })} >
                   <EditIcon />
                 </IconButton>
               </div>
