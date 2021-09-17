@@ -38,6 +38,7 @@ function InvestorForm() {
     const { id, companyName } = useLocation().state
     const [formValues, setFormValues] = React.useState({});
     const [formErrors, setFormErrors] = React.useState({});
+    const [disabled, setDisabled] = React.useState(true);
 
 
     const handleInputChange = async (e) => {
@@ -63,14 +64,22 @@ function InvestorForm() {
     const formValidation = () => {
         const validationResponse = validateInvestorForm(formValues)
         setFormErrors(validationResponse.errors)
+        return (validationResponse.success)
+    }
+
+    const checkRequiredFields = () => {
+        const requiredFields = ['fullname', 'email', 'phone', 'minAmount', 'maxAmount']
+        return (requiredFields.every(key => Object.keys(formValues).includes(key)))
     }
 
     React.useEffect(() => {
         if (firstRender.current) {
-            firstRender.current = false 
-            return 
+            firstRender.current = false
+            return
         }
         formValidation()
+        setDisabled(!checkRequiredFields() || !formValidation())
+
     }, [formValues])
 
     return (
@@ -162,7 +171,7 @@ function InvestorForm() {
                         />
 
                         <div className={classes.buttons}>
-                            <Button onClick={(()=>history.goBack())}>
+                            <Button onClick={(() => history.goBack())}>
                                 Cancel
                             </Button>
                             <Button
@@ -170,6 +179,7 @@ function InvestorForm() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                disabled={disabled}
                             >
                                 Submit
                             </Button>

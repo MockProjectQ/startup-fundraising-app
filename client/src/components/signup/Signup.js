@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import SignupDetails from './SignupDetails';
 import CompanyDetails from './CompanyDetails';
 import MoreDetails from './MoreDetails';
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import validateSignupForm from '../../helper/validateSignupForm';
 import { addUserDetails } from '../../services/UserService';
 import Navbar from '../navbar/Navbar';
@@ -83,6 +83,7 @@ function Signup() {
   const formValidation = () => {
     const validationResponse = validateSignupForm(formValues)
     setFormErrors(validationResponse.errors)
+    return (validationResponse.success)
   }
 
   const checkRequiredFields = () => {
@@ -90,7 +91,6 @@ function Signup() {
       'CINNumber', 'companyEmail', 'companyPhone', 'companyAddress', 'description',
       'investmentRequired', 'expectedROI', 'companyLogo', 'pitchDeck']
     return (requiredFields.every(key => Object.keys(formValues).includes(key)))
-
   }
 
   const handleNext = async () => {
@@ -155,7 +155,7 @@ function Signup() {
     }
     formValidation()
     if (activeStep === 2) {
-      setDisabled(!checkRequiredFields())
+      setDisabled(!checkRequiredFields() || !formValidation())
     }
     else{
       setDisabled(false)
