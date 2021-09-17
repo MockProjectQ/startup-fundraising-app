@@ -7,7 +7,6 @@ import { auth } from '../../config/firebase';
 
 const Navbar = () => {
     const user=auth.currentUser;
-    console.log(user)
     const history = useHistory();
     const [click, setClick]=useState(false)
     const [button, setButton] = useState(true);

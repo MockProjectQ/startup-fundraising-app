@@ -71,7 +71,7 @@ async function addUserDetails(formValues) {
 
                         if(response.id){
                             console.log(response.id)
-                            return response.id
+                            return {success: true, response: response.id}
                         }
                     }
 
@@ -80,6 +80,7 @@ async function addUserDetails(formValues) {
         }
     } catch (error) {
         console.log(error)
+        return {success:false , error: error}
     }
 }
 

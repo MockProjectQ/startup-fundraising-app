@@ -81,6 +81,7 @@ function CompanyDetails(props) {
                 name="companyPhone"
                 label="Company Contact Number"
                 id="companyPhone"
+                type= "number"
                 onChange={handleInputChange}
                 error={Boolean(formErrors.companyPhone)}
                 helperText={formErrors.companyPhone}

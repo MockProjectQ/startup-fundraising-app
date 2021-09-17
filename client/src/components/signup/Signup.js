@@ -8,17 +8,17 @@ import Typography from '@material-ui/core/Typography';
 import SignupDetails from './SignupDetails';
 import CompanyDetails from './CompanyDetails';
 import MoreDetails from './MoreDetails';
-import { Link } from 'react-router-dom';
 import { useLocation, useHistory } from "react-router-dom";
 import validateSignupForm from '../../helper/validateSignupForm';
 import { addUserDetails } from '../../services/UserService';
+import Navbar from '../navbar/Navbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     minHeight: '100vh',
     background: '#e5e5e5',
-    padding: '3em 0'
+    padding: '0 0 3em 0'
   },
   paper: {
     margin: '1em'
@@ -43,6 +43,8 @@ function getSteps() {
 function Signup() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [disabled, setDisabled] = React.useState(false);
+  const [message, setMessage] = React.useState('');
   const steps = getSteps();
 
   let history = useHistory()
@@ -83,11 +85,26 @@ function Signup() {
     setFormErrors(validationResponse.errors)
   }
 
+  const checkRequiredFields = () => {
+    const requiredFields = ['fullname', 'email', 'password', 'confirmPassword', 'companyName',
+      'CINNumber', 'companyEmail', 'companyPhone', 'companyAddress', 'description',
+      'investmentRequired', 'expectedROI', 'companyLogo', 'pitchDeck']
+    return (requiredFields.every(key => Object.keys(formValues).includes(key)))
+
+  }
+
   const handleNext = async () => {
-    if(activeStep==2){
+    if (activeStep == 2) {
       const validationResponse = await validateSignupForm(formValues)
-      if(validationResponse.success){
-        await addUserDetails(formValues)
+      if (validationResponse.success) {
+        const response = await addUserDetails(formValues)
+        console.log(response.success)
+        if(response.success){
+          setMessage('Successfully Signed up!!')
+        }
+        else{
+          setMessage(response.error.message)
+        }
       }
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -137,10 +154,17 @@ function Signup() {
       return
     }
     formValidation()
-  }, [formValues])
+    if (activeStep === 2) {
+      setDisabled(!checkRequiredFields())
+    }
+    else{
+      setDisabled(false)
+    }
+  }, [formValues,activeStep])
 
   return (
     <div className={classes.root}>
+      <Navbar />
       <Container component="main" maxWidth="md">
         <Paper className={classes.paper}>
           <Stepper activeStep={activeStep}>
@@ -160,12 +184,12 @@ function Signup() {
             {activeStep === steps.length ? (
               <div>
                 <Typography className={classes.instructions}>
-                  Successfully signed up!!
+                  {message}
                 </Typography>
                 <Button onClick={goToProfile} className={classes.button}>
                   OK
                 </Button>
-                
+
               </div>
             ) : (
               <div>
@@ -180,6 +204,7 @@ function Signup() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    disabled={disabled}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
