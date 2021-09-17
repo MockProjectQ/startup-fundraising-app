@@ -186,7 +186,7 @@ function Signup() {
                 <Typography className={classes.instructions}>
                   {message}
                 </Typography>
-                <Button onClick={goToProfile} className={classes.button}>
+                <Button onClick={()=>goToProfile()} className={classes.button}>
                   OK
                 </Button>
 
