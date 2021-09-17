@@ -59,12 +59,12 @@ export default function validateSignupForm(formValues) {
     }
 
     // URL validation
-    if ('websiteUrl' in formValues) {
-        if (!isURL(formValues.websiteUrl)) {
-            errors['websiteUrl'] = "Invalid URL"
+    if ('companyWebsite' in formValues) {
+        if (!isURL(formValues.companyWebsite)) {
+            errors['companyWebsite'] = "Invalid URL"
         }
-        if (formValues.websiteUrl === '') {
-            delete errors['websiteUrl']
+        if (formValues.companyWebsite === '') {
+            delete errors['companyWebsite']
         }
     }
 
@@ -118,6 +118,8 @@ export default function validateSignupForm(formValues) {
             errors['expectedROI'] = "Must be between 0 and 100"
         }
     }
+
+    console.log(errors)
 
 
     if (Object.keys(errors).length) return { success: false, errors: errors }

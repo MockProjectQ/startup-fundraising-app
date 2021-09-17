@@ -1,4 +1,6 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
+
 import {
   makeStyles,
   Avatar,
@@ -120,6 +122,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CompanyDetails(props) {
   const classes = useStyles();
+  let history = useHistory()
 
   const role = props.role;
 
@@ -165,7 +168,11 @@ function CompanyDetails(props) {
                 <Chip label={"Status: " + config.status[status]} className={classes[status]} />
 
                 {/* Edit */}
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit"
+                  onClick={() => history.push({
+                    pathname: `/edit/${id}`,
+                    state: { data: props.startup }
+                  })}>
                   <EditIcon />
                 </IconButton>
               </div>
@@ -206,7 +213,7 @@ function CompanyDetails(props) {
                 }
 
 
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" onClick={() => history.push(`/edit/${id}`)} >
                   <EditIcon />
                 </IconButton>
               </div>

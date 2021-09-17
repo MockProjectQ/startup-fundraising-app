@@ -58,20 +58,20 @@ async function addUserDetails(formValues) {
                             companyLogo: logoUrl,
                             companyName: formValues.companyName,
                             companyPhone: formValues.companyPhone,
-                            companyWebsite: formValues.websiteUrl,
+                            companyWebsite: formValues.companyWebsite ? formValues.companyWebsite : "",
                             description: formValues.description,
                             expectedROI: formValues.expectedROI,
                             investmentRequired: formValues.investmentRequired,
                             pitchDeck: pitchDeckUrl,
                             reports: 0,
                             status: "pending",
-                            tags: formValues.tags,
+                            tags: formValues.tags ? formValues.tags : [],
                             userId: userId
                         })
 
-                        if(response.id){
+                        if (response.id) {
                             console.log(response.id)
-                            return {success: true, response: response.id}
+                            return { success: true, response: response.id }
                         }
                     }
 
@@ -80,8 +80,85 @@ async function addUserDetails(formValues) {
         }
     } catch (error) {
         console.log(error)
-        return {success:false , error: error}
+        return { success: false, error: error }
     }
 }
 
-export { getUserById, getUserByEmail, addUserDetails };
+async function updateUserDetails(id, formValues) {
+    try {
+
+        const response = await db.collection('start_ups').doc(id).get();
+        const responseData = response.data()
+
+        if (responseData) {
+            if (formValues.companyLogo.type === "image/jpeg") {
+                const logoFileRef = storage.refFromURL(responseData.companyLogo);
+                console.log(responseData.companyLogo)
+                console.log(logoFileRef.fullPath)
+                await storage.ref(logoFileRef.fullPath).delete()
+                    .then(async () => {
+                        const logoFileName = `${formValues.companyName}-logo-${formValues.userId}-${Math.random()}.jpeg`;
+                        const uploadLogoTask = await storage.ref(`logo/${logoFileName}`).put(formValues.companyLogo)
+
+                        if (uploadLogoTask.state === "success") {
+                            formValues.companyLogo = await storage
+                                .ref(`logo/${logoFileName}`)
+                                .getDownloadURL()
+                        }
+                    })
+                    .catch((error) => error)
+
+            }
+            if (formValues.pitchDeck.type === "application/pdf") {
+                const pitchDeckRef = storage.refFromURL(responseData.pitchDeck);
+                await storage.ref(pitchDeckRef.fullPath).delete()
+                    .then(async () => {
+                        const pitchDeckName = `${formValues.companyName}-pitchdeck-${formValues.userId}-${Math.random()}.pdf`;
+                        const uploadPitchDeckTask = await storage.ref(`pitchDeck/${pitchDeckName}`).put(formValues.pitchDeck)
+
+                        if (uploadPitchDeckTask.state === "success") {
+                            formValues.pitchDeck = await storage
+                                .ref(`pitchDeck/${pitchDeckName}`)
+                                .getDownloadURL()
+                        }
+                    })
+                    .catch((error) => error)
+
+
+            }
+
+            const updateResponse = await db.collection("start_ups").doc(id).update({
+                CINNumber: formValues.CINNumber,
+                companyAddress: formValues.companyAddress,
+                companyEmail: formValues.companyEmail,
+                companyLogo: formValues.companyLogo,
+                companyName: formValues.companyName,
+                companyPhone: formValues.companyPhone,
+                companyWebsite: formValues.companyWebsite ? formValues.companyWebsite : "",
+                description: formValues.description,
+                expectedROI: formValues.expectedROI,
+                investmentRequired: formValues.investmentRequired,
+                pitchDeck: formValues.pitchDeck,
+                reports: 0,
+                status: "pending",
+                tags: formValues.tags ? formValues.tags : [],
+                userId: formValues.userId
+            })
+
+            if (response.id) {
+                console.log(response.id)
+                return { success: true, response: response.id }
+            }
+            else {
+                console.log('error')
+            }
+        }
+
+
+    } catch (error) {
+        console.log(error)
+        return { success: false, error: error }
+    }
+}
+
+export { getUserById, getUserByEmail, addUserDetails, updateUserDetails };
