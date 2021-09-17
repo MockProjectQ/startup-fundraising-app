@@ -181,37 +181,26 @@ function CompanyDetails(props) {
           {
             role === config.role.admin && (
               <div className={classes.operations}>
-                {
-                  status === "approved" ? (
-                    < Chip label={"Status: " + config.status[status]} className={classes[status]} />
-                  ) : (
 
-                    <Button
-                      variant="contained"
-                      size="small"
-                      className={classes.approved}
-                      onClick={() => approveStartupWithId(id)}
-                    >
-                      Approve
-                    </Button>
-                  )
-                }
-                {
-                  status === "rejected" ? (
-                    < Chip label={"Status: " + config.status[status]} className={classes[status]} />
-                  ) : (
+                <Button
+                  variant="contained"
+                  size="small"
+                  className={classes.approved}
+                  onClick={() => approveStartupWithId(id)}
+                >
+                  Approve
+                </Button>
 
-                    <Button
-                      variant="contained"
-                      size="small"
-                      className={classes.rejected}
-                      onClick={() => rejectStartupWithId(id)}
-                    >
-                      Reject
-                    </Button>
-                  )
-                }
+                <Button
+                  variant="contained"
+                  size="small"
+                  className={classes.rejected}
+                  onClick={() => rejectStartupWithId(id)}
+                >
+                  Reject
+                </Button>
 
+                < Chip label={"Status: " + config.status[status]} className={classes[status]} />
 
                 <IconButton aria-label="edit"
                   onClick={() => history.push({

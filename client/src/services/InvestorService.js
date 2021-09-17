@@ -28,4 +28,15 @@ async function addInvestor(id, value) {
     }
 }
 
-export { getInvestors, addInvestor };
+async function reportStartup(id) {
+    try {
+        const startupResponse = await db.collection("start_ups").doc(id).get()
+        const response = await db.collection("start_ups").doc(id).update({
+            reports: startupResponse.data().reports? (startupResponse.data().reports + 1) : 1 
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { getInvestors, addInvestor, reportStartup };

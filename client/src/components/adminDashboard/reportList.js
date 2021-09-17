@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom"
 import Container from "@material-ui/core/Container";
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -22,9 +23,9 @@ const useStyles = makeStyles(theme => ({
         paddingTop: "5%",
         paddingBottom: "5%",
         width: "45%",
-        [theme.breakpoints.between('xs','sm')]:{
-            width :"100%",
-            margin :"auto",
+        [theme.breakpoints.between('xs', 'sm')]: {
+            width: "100%",
+            margin: "auto",
             //marginTop:"2.5%",
         },
     },
@@ -62,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ReportList() {
     const [result, setResult] = useState([]);
+    let history = useHistory()
 
     const classes = useStyles();
 
@@ -129,7 +131,11 @@ export default function ReportList() {
                                     {<PersonIcon />}
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText style={{ cursor: "pointer" }} onClick={() => { console.log(item) }}>
+                            <ListItemText style={{ cursor: "pointer" }}
+                                onClick={() => history.push({
+                                    pathname: `/startup/${item.id}`,
+                                    state: { id: item.id }
+                                })} >
                                 <Typography component="span"> {item.companyName}</Typography>
                                 <Typography component="span" className={classes.noOfReports}>{item.reports}</Typography>
 

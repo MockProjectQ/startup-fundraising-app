@@ -33,7 +33,8 @@ function ContentTabs(props) {
         companyName,
         investmentRequired,
         pitchDeck,
-        userId
+        userId,
+        expectedROI
     } = props.startup;
 
     // Handle Tab change
@@ -86,7 +87,8 @@ function ContentTabs(props) {
                     id,
                     description,
                     companyName,
-                    investmentRequired
+                    investmentRequired,
+                    expectedROI
                 }}
             />
             <PitchDeck value={value} index={1} startup={{ pitchDeck }} />

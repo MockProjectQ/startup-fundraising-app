@@ -10,6 +10,10 @@ import {
 } from '@material-ui/core';
 import config from "../../config/config.json";
 import { Link } from 'react-router-dom';
+import { reportStartup } from '../../services/InvestorService';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 
@@ -30,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     padding: '1em',
+    marginBottom: '1em'
   },
   donateBtn: {
     textDecoration: "none",
@@ -47,13 +52,42 @@ function Description(props) {
   const classes = useStyles();
   const { value, index, startup } = props;
   const role = props.role;
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
 
   const {
     id,
     description,
     companyName,
-    investmentRequired
+    investmentRequired,
+    expectedROI
   } = startup;
+
+  const handleReport = () => {
+    reportStartup(id);
+    setSnackbarOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <div>
@@ -115,15 +149,35 @@ function Description(props) {
                   }
                 </Card>
 
+                {/* Expected ROI */}
+                <Card className={classes.card}>
+                  <CardContent>
+                    <div className={classes.cardTitle}>
+                      Expected ROI
+                    </div>
+                    <h2 className={classes.fundAmount}>
+                      {expectedROI} %
+                    </h2>
+                  </CardContent>
+                </Card>
+
                 {/* Report Button */}
                 {/* Only accessed by investors*/}
                 {
                   (role === config.role.others) && (
-                    <Button variant="outlined" className={classes.reportBtn}>
+                    <Button variant="outlined" className={classes.reportBtn} onClick={handleReport}>
                       Report
                     </Button>
+
                   )
                 }
+                <Snackbar
+                  open={snackbarOpen}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                  message="Reported"
+                  action={action}
+                />
               </Grid>
 
             </Grid>
