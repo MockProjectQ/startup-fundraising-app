@@ -141,9 +141,6 @@ function Description(props) {
                             Donate
                           </Button>
                         </Link>
-                        <Button variant="contained">
-                          Share
-                        </Button>
                       </CardActions>
                     )
                   }
